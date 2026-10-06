@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Course | LearnSphere</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+        }
+
+        header {
+            height: 70px;
+            background: #111827;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .brand span {
+            color: #6ee7b7;
+        }
+
+        .back {
+            color: white;
+            text-decoration: none;
+            padding: 10px 16px;
+            border: 1px solid #374151;
+            border-radius: 8px;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 45px auto;
+            padding: 0 20px;
+        }
+
+        .title {
+            margin-bottom: 25px;
+        }
+
+        .title h1 {
+            margin: 0 0 8px;
+            font-size: 32px;
+        }
+
+        .title p {
+            margin: 0;
+            color: #64748b;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #d5dbe5;
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #2563eb;
+        }
+
+        textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        button {
+            border: none;
+            border-radius: 9px;
+            padding: 13px 22px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .cancel {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        .submit {
+            background: #2563eb;
+            color: white;
+        }
+
+        .submit:hover {
+            background: #1d4ed8;
+        }
+
+        .message {
+            display: none;
+            margin-top: 20px;
+            padding: 13px;
+            border-radius: 8px;
+        }
+
+        .success {
+            display: block;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .error {
+            display: block;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .security {
+            margin-top: 20px;
+            padding: 15px;
+            background: #eff6ff;
+            border-radius: 10px;
+            color: #1e40af;
+            font-size: 14px;
+        }
+
+        @media (max-width: 700px) {
+            .row {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="brand">
+        Learn<span>Sphere</span>
+    </div>
+
+    <a href="instructor-dashboard.html" class="back">
+        ← Dashboard
+    </a>
+</header>
+
+
+<main>
+
+    <div class="title">
+        <h1>Create New Course</h1>
+        <p>Create and publish a course for LearnSphere students.</p>
+    </div>
+
+
+    <div class="card">
+
+        <form id="courseForm">
+
+            <div class="form-group">
+                <label for="title">
+                    Course Title
+                </label>
+
+                <input
+                    id="title"
+                    type="text"
+                    placeholder="Example: Data Structures & Algorithms"
+                    required
+                    maxlength="100"
+                >
+            </div>
+
+
+            <div class="row">
+
+                <div class="form-group">
+
+                    <label for="category">
+                        Category
+                    </label>
+
+                    <select id="category" required>
+
+                        <option value="">
+                            Select category
+                        </option>
+
+                        <option value="Computer Science">
+                            Computer Science
+                        </option>
+
+                        <option value="Programming">
+                            Programming
+                        </option>
+
+                        <option value="Database">
+                            Database
+                        </option>
+
+                        <option value="Operating Systems">
+                            Operating Systems
+                        </option>
+
+                        <option value="Computer Networks">
+                            Computer Networks
+                        </option>
+
+                        <option value="Cybersecurity">
+                            Cybersecurity
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="level">
+                        Difficulty Level
+                    </label>
+
+                    <select id="level" required>
+
+                        <option value="">
+                            Select level
+                        </option>
+
+                        <option value="Beginner">
+                            Beginner
+                        </option>
+
+                        <option value="Intermediate">
+                            Intermediate
+                        </option>
+
+                        <option value="Advanced">
+                            Advanced
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="description">
+                    Course Description
+                </label>
+
+                <textarea
+                    id="description"
+                    maxlength="500"
+                    placeholder="Describe what students will learn..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="instructor">
+                    Instructor
+                </label>
+
+                <input
+                    id="instructor"
+                    type="text"
+                    readonly
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="status">
+                    Course Status
+                </label>
+
+                <select id="status">
+
+                    <option value="draft">
+                        Draft
+                    </option>
+
+                    <option value="published">
+                        Published
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="security">
+
+                🔐 <strong>Secure Course Creation</strong><br>
+
+                Only authenticated instructors can create courses.
+                Course creation is validated by the LearnSphere backend.
+
+            </div>
+
+
+            <div id="message" class="message"></div>
+
+
+            <div class="actions">
+
+                <button
+                    type="button"
+                    class="cancel"
+                    onclick="window.location.href='instructor-dashboard.html'"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="submit"
+                >
+                    Create Course
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</main>
+
+
+<script>
+
+const API =
+    "http://localhost:5000";
+
+
+/* =====================================================
+   AUTH CHECK
+===================================================== */
+
+const token =
+    sessionStorage.getItem("authToken");
+
+const currentRole =
+    sessionStorage.getItem("role");
+
+
+if (
+    !token ||
+    currentRole !== "instructor"
+) {
+
+    window.location.href =
+        "instructor-login.html";
+
+}
+
+
+/* =====================================================
+   LOAD INSTRUCTOR NAME
+===================================================== */
+
+const instructorName =
+    sessionStorage.getItem(
+        "instructorName"
+    );
+
+
+document.getElementById(
+    "instructor"
+).value =
+    instructorName ||
+    "Authenticated Instructor";
+
+
+/* =====================================================
+   CREATE COURSE
+===================================================== */
+
+document.getElementById(
+    "courseForm"
+).addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        const message =
+            document.getElementById(
+                "message"
+            );
+
+
+        message.className =
+            "message";
+
+
+        message.textContent =
+            "";
+
+
+        const title =
+            document.getElementById(
+                "title"
+            ).value.trim();
+
+
+        const category =
+            document.getElementById(
+                "category"
+            ).value;
+
+
+        const level =
+            document.getElementById(
+                "level"
+            ).value;
+
+
+        const description =
+            document.getElementById(
+                "description"
+            ).value.trim();
+
+
+        const status =
+            document.getElementById(
+                "status"
+            ).value;
+
+
+        try {
+
+            const response =
+                await fetch(
+                    API +
+                    "/api/instructor/courses",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json",
+
+                            "Authorization":
+                                "Bearer " +
+                                token
+
+                        },
+
+                        body:
+                            JSON.stringify({
+
+                                title,
+
+                                description,
+
+                                category,
+
+                                level,
+
+                                status
+
+                            })
+
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.error ||
+                    "Course creation failed"
+                );
+
+            }
+
+
+            message.className =
+                "message success";
+
+
+            message.textContent =
+                "✓ Course created successfully!";
+
+
+            setTimeout(
+                function() {
+
+                    window.location.href =
+                        "instructor-dashboard.html";
+
+                },
+                1000
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                error
+            );
+
+
+            message.className =
+                "message error";
+
+
+            message.textContent =
+                "✕ " +
+                (
+                    error.message ||
+                    "Unable to create course"
+                );
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>

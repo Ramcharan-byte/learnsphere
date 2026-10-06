@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LearnSphere | Student Login</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* =========================================
+           LOGIN PAGE
+        ========================================= */
+
+        .login-page {
+            min-height: 100vh;
+
+            display: flex;
+            flex-direction: column;
+
+            background:
+                radial-gradient(
+                    circle at 50% 25%,
+                    rgba(118, 83, 255, 0.11),
+                    transparent 32%
+                ),
+                radial-gradient(
+                    circle at 15% 80%,
+                    rgba(69, 230, 165, 0.04),
+                    transparent 25%
+                ),
+                #070a10;
+        }
+
+
+        /* =========================================
+           TOP HEADER
+        ========================================= */
+
+        .login-header {
+            height: 70px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 5%;
+
+            border-bottom: 1px solid rgba(39, 48, 68, 0.8);
+
+            background: rgba(7, 10, 16, 0.75);
+
+            backdrop-filter: blur(16px);
+        }
+
+        .login-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            color: #f4f6fb;
+
+            font-size: 17px;
+            font-weight: 850;
+
+            text-decoration: none;
+        }
+
+        .login-brand-mark {
+            width: 31px;
+            height: 31px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 8px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7653ff,
+                    #5639d8
+                );
+
+            color: white;
+
+            font-weight: 900;
+
+            box-shadow:
+                0 0 22px rgba(118, 83, 255, 0.25);
+        }
+
+        .login-brand span span {
+            color: #a78bfa;
+        }
+
+        .back-home {
+            color: #687694;
+
+            font-size: 10px;
+            font-weight: 700;
+
+            transition: 0.2s ease;
+        }
+
+        .back-home:hover {
+            color: #c4b5fd;
+        }
+
+
+        /* =========================================
+           MAIN
+        ========================================= */
+
+        .login-main {
+            flex: 1;
+
+            width: 92%;
+            max-width: 1100px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 440px;
+
+            gap: 80px;
+
+            align-items: center;
+
+            padding: 65px 0;
+        }
+
+
+        /* =========================================
+           LEFT CONTENT
+        ========================================= */
+
+        .login-intro {
+            max-width: 510px;
+        }
+
+        .login-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 7px 11px;
+
+            border: 1px solid rgba(69, 230, 165, 0.18);
+
+            border-radius: 20px;
+
+            background: rgba(69, 230, 165, 0.035);
+
+            color: #45e6a5;
+
+            font-size: 8px;
+            font-weight: 900;
+
+            letter-spacing: 1.3px;
+        }
+
+        .login-eyebrow span {
+            width: 5px;
+            height: 5px;
+
+            border-radius: 50%;
+
+            background: #45e6a5;
+
+            box-shadow:
+                0 0 8px rgba(69, 230, 165, 0.8);
+        }
+
+        .login-intro h1 {
+            margin-top: 22px;
+
+            color: #f4f6fb;
+
+            font-size: clamp(38px, 5vw, 60px);
+
+            line-height: 1;
+
+            letter-spacing: -3px;
+
+            font-weight: 850;
+        }
+
+        .login-intro h1 span {
+            color: #a78bfa;
+        }
+
+        .login-description {
+            max-width: 470px;
+
+            margin-top: 20px;
+
+            color: #8190ad;
+
+            font-size: 13px;
+
+            line-height: 1.8;
+        }
+
+
+        /* =========================================
+           SECURITY POINTS
+        ========================================= */
+
+        .login-features {
+            display: grid;
+
+            gap: 12px;
+
+            margin-top: 32px;
+        }
+
+        .login-feature {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+        }
+
+        .login-feature-icon {
+            width: 32px;
+            height: 32px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            border-radius: 8px;
+
+            background: rgba(118, 83, 255, 0.09);
+
+            border: 1px solid rgba(118, 83, 255, 0.13);
+
+            color: #a78bfa;
+
+            font-size: 12px;
+        }
+
+        .login-feature strong {
+            display: block;
+
+            color: #dce2ed;
+
+            font-size: 10px;
+        }
+
+        .login-feature span {
+            display: block;
+
+            margin-top: 2px;
+
+            color: #687694;
+
+            font-size: 8px;
+        }
+
+
+        /* =========================================
+           LOGIN CARD
+        ========================================= */
+
+        .login-card {
+
+            padding: 30px;
+
+            border: 1px solid #273044;
+
+            border-radius: 16px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(18, 24, 35, 0.98),
+                    rgba(11, 15, 23, 0.98)
+                );
+
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.4),
+                0 0 70px rgba(118, 83, 255, 0.06);
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            top: -100px;
+            right: -80px;
+
+            border-radius: 50%;
+
+            background: rgba(118, 83, 255, 0.10);
+
+            filter: blur(10px);
+
+            pointer-events: none;
+        }
+
+        .login-card-header {
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-card-header h2 {
+            color: #f4f6fb;
+
+            font-size: 20px;
+        }
+
+        .login-card-header p {
+            margin-top: 6px;
+
+            color: #687694;
+
+            font-size: 10px;
+
+            line-height: 1.6;
+        }
+
+        .student-role-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+
+            margin-bottom: 16px;
+
+            padding: 6px 9px;
+
+            border-radius: 6px;
+
+            background: rgba(118, 83, 255, 0.09);
+
+            color: #a78bfa;
+
+            font-size: 7px;
+            font-weight: 900;
+
+            letter-spacing: 1px;
+        }
+
+        .student-role-badge span {
+            color: #45e6a5;
+        }
+
+
+        /* =========================================
+           FORM
+        ========================================= */
+
+        .login-form {
+            position: relative;
+            z-index: 2;
+
+            margin-top: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #9aa8c0;
+
+            font-size: 9px;
+            font-weight: 800;
+
+            letter-spacing: 0.4px;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .login-input {
+            width: 100%;
+
+            padding: 12px 13px;
+
+            border: 1px solid #273044;
+
+            border-radius: 8px;
+
+            outline: none;
+
+            background: #0b1018;
+
+            color: #edf1f8;
+
+            font-size: 11px;
+
+            transition: 0.2s ease;
+        }
+
+        .login-input::placeholder {
+            color: #4f5c72;
+        }
+
+        .login-input:focus {
+            border-color: #7653ff;
+
+            box-shadow:
+                0 0 0 3px rgba(118, 83, 255, 0.08);
+        }
+
+
+        /* =========================================
+           INSTITUTION SEARCH
+        ========================================= */
+
+        .institution-search {
+            position: relative;
+        }
+
+        .institution-results {
+            position: absolute;
+
+            z-index: 20;
+
+            top: calc(100% + 5px);
+
+            left: 0;
+            right: 0;
+
+            max-height: 180px;
+
+            overflow-y: auto;
+
+            border: 1px solid #273044;
+
+            border-radius: 8px;
+
+            background: #111722;
+
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.35);
+
+            display: none;
+        }
+
+        .institution-results.show {
+            display: block;
+        }
+
+        .institution-option {
+            padding: 10px 12px;
+
+            color: #aeb9cc;
+
+            font-size: 9px;
+
+            cursor: pointer;
+
+            border-bottom: 1px solid rgba(39, 48, 68, 0.45);
+
+            transition: 0.15s ease;
+        }
+
+        .institution-option:last-child {
+            border-bottom: none;
+        }
+
+        .institution-option:hover {
+            background: rgba(118, 83, 255, 0.09);
+
+            color: #ddd7ff;
+        }
+
+        .no-result {
+            padding: 11px;
+
+            color: #687694;
+
+            font-size: 9px;
+        }
+
+
+        /* =========================================
+           PASSWORD
+        ========================================= */
+
+        .password-input {
+            padding-right: 70px;
+        }
+
+        .password-toggle {
+            position: absolute;
+
+            right: 10px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: none;
+
+            background: transparent;
+
+            color: #687694;
+
+            font-size: 8px;
+            font-weight: 800;
+
+            cursor: pointer;
+        }
+
+        .password-toggle:hover {
+            color: #a78bfa;
+        }
+
+
+        /* =========================================
+           ERROR
+        ========================================= */
+
+        .login-error {
+            display: none;
+
+            margin-bottom: 15px;
+
+            padding: 10px 11px;
+
+            border: 1px solid rgba(255, 98, 98, 0.25);
+
+            border-radius: 7px;
+
+            background: rgba(255, 98, 98, 0.05);
+
+            color: #ff8a8a;
+
+            font-size: 9px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================================
+           LOGIN BUTTON
+        ========================================= */
+
+        .login-submit {
+            width: 100%;
+
+            margin-top: 5px;
+
+            padding: 13px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7653ff,
+                    #6444df
+                );
+
+            color: white;
+
+            font-size: 10px;
+            font-weight: 850;
+
+            letter-spacing: 0.2px;
+
+            box-shadow:
+                0 10px 25px rgba(118, 83, 255, 0.2);
+
+            transition: 0.2s ease;
+        }
+
+        .login-submit:hover {
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 13px 30px rgba(118, 83, 255, 0.3);
+        }
+
+
+        /* =========================================
+           LOGIN FOOTER
+        ========================================= */
+
+        .login-security {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 6px;
+
+            margin-top: 17px;
+
+            color: #687694;
+
+            font-size: 7px;
+            font-weight: 700;
+
+            text-align: center;
+        }
+
+        .login-security span {
+            color: #45e6a5;
+        }
+
+        .login-divider {
+            height: 1px;
+
+            margin: 22px 0;
+
+            background: #273044;
+        }
+
+        .role-note {
+            color: #59677f;
+
+            font-size: 8px;
+
+            line-height: 1.6;
+
+            text-align: center;
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 850px) {
+
+            .login-main {
+                grid-template-columns: 1fr;
+
+                max-width: 500px;
+
+                gap: 45px;
+
+                padding: 45px 0 60px;
+            }
+
+            .login-intro {
+                text-align: center;
+            }
+
+            .login-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .login-features {
+                text-align: left;
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .login-header {
+                padding: 0 4%;
+            }
+
+            .login-main {
+                width: 92%;
+            }
+
+            .login-intro h1 {
+                font-size: 40px;
+            }
+
+            .login-card {
+                padding: 23px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<div class="login-page">
+
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <header class="login-header">
+
+        <a href="index.html"
+           class="login-brand">
+
+            <div class="login-brand-mark">
+                L
+            </div>
+
+            <span>
+                Learn<span>Sphere</span>
+            </span>
+
+        </a>
+
+
+        <a href="index.html"
+           class="back-home">
+            ← Back to platform
+        </a>
+
+    </header>
+
+
+    <!-- =========================================
+         MAIN
+    ========================================== -->
+
+    <main class="login-main">
+
+
+        <!-- =====================================
+             LEFT
+        ====================================== -->
+
+        <section class="login-intro">
+
+            <div class="login-eyebrow">
+
+                <span></span>
+
+                STUDENT ACCESS PORTAL
+
+            </div>
+
+
+            <h1>
+
+                Learn smarter.
+                <br>
+
+                <span>Stay secure.</span>
+
+            </h1>
+
+
+            <p class="login-description">
+
+                Sign in to your LearnSphere student workspace.
+                Access courses, assessments, progress tracking
+                and your protected AI learning assistant.
+
+            </p>
+
+
+            <div class="login-features">
+
+                <div class="login-feature">
+
+                    <div class="login-feature-icon">
+                        ◈
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Structured Learning
+                        </strong>
+
+                        <span>
+                            Courses and lessons organized for focused learning
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="login-feature">
+
+                    <div class="login-feature-icon">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Secure Assessments
+                        </strong>
+
+                        <span>
+                            Complete assessments and track your performance
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="login-feature">
+
+                    <div class="login-feature-icon">
+                        ✦
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Student AI Copilot
+                        </strong>
+
+                        <span>
+                            AI assistance available only to authenticated students
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             LOGIN CARD
+        ====================================== -->
+
+        <section class="login-card">
+
+
+            <div class="login-card-header">
+
+                <div class="student-role-badge">
+
+                    <span>●</span>
+
+                    ROLE · STUDENT
+
+                </div>
+
+
+                <h2>
+                    Welcome back
+                </h2>
+
+
+                <p>
+                    Enter your details to access your learning workspace.
+                </p>
+
+            </div>
+
+
+            <form class="login-form"
+                  id="studentLoginForm">
+
+
+                <!-- NAME -->
+
+                <div class="form-group">
+
+                    <label for="studentNameInput">
+                        STUDENT NAME
+                    </label>
+
+                    <input
+                        id="studentNameInput"
+                        class="login-input"
+                        type="text"
+                        placeholder="Enter your name"
+                        autocomplete="name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- INSTITUTION -->
+
+                <div class="form-group">
+
+                    <label for="institutionInput">
+                        INSTITUTION
+                    </label>
+
+                    <div class="institution-search">
+
+                        <input
+                            id="institutionInput"
+                            class="login-input"
+                            type="text"
+                            placeholder="Search your institution..."
+                            autocomplete="organization"
+                            required
+                        >
+
+                        <div
+                            id="institutionResults"
+                            class="institution-results">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="emailInput">
+                        EMAIL
+                    </label>
+
+                    <input
+                        id="emailInput"
+                        class="login-input"
+                        type="email"
+                        placeholder="student@example.com"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="passwordInput">
+                        PASSWORD
+                    </label>
+
+                    <div class="input-wrap">
+
+                        <input
+                            id="passwordInput"
+                            class="login-input password-input"
+                            type="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            id="passwordToggle"
+                            class="password-toggle">
+                            SHOW
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ERROR -->
+
+                <div
+                    id="loginError"
+                    class="login-error">
+                </div>
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    type="submit"
+                    class="login-submit">
+
+                    Continue to Student Dashboard →
+
+                </button>
+
+
+            </form>
+
+
+            <div class="login-security">
+
+                <span>●</span>
+
+                SECURE AUTHENTICATION
+
+                <span>·</span>
+
+                ROLE VERIFIED
+
+            </div>
+
+
+            <div class="login-divider"></div>
+
+
+            <div class="role-note">
+
+                This portal is restricted to student accounts.
+                Instructor and administrator access use separate
+                secured entry points.
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    const API_URL =
+        "http://localhost:5000";
+
+
+    /* =========================================
+       INSTITUTIONS
+    ========================================= */
+
+    const institutions = [
+
+        "VBIT",
+        "CBIT",
+        "JNTUH",
+        "Osmania University",
+        "University of Hyderabad",
+        "IIIT Hyderabad",
+        "IIT Hyderabad",
+        "VNR VJIET",
+        "GRIET",
+        "Vasavi College of Engineering",
+        "MGIT",
+        "VJIT",
+        "CVR College of Engineering",
+        "CMR College of Engineering & Technology",
+        "Malla Reddy Engineering College",
+        "KMIT",
+        "IARE",
+        "Anurag University",
+        "SNIST",
+        "Mahindra University",
+        "GITAM Hyderabad",
+        "Woxsen University",
+        "Muffakham Jah College of Engineering",
+        "Sreenidhi Institute of Science and Technology",
+        "MLR Institute of Technology",
+        "BVRIT Hyderabad",
+        "CMR Technical Campus",
+        "ACE Engineering College",
+        "TKR College of Engineering and Technology",
+        "Hyderabad Institute of Technology and Management"
+
+    ];
+
+
+    const institutionInput =
+        document.getElementById(
+            "institutionInput"
+        );
+
+    const institutionResults =
+        document.getElementById(
+            "institutionResults"
+        );
+
+
+    function showInstitutions(search = "") {
+
+        const value =
+            search.toLowerCase().trim();
+
+
+        const matches =
+            institutions
+                .filter(item =>
+                    item.toLowerCase()
+                    .includes(value)
+                )
+                .slice(0, 8);
+
+
+        if (!matches.length) {
+
+            institutionResults.innerHTML = `
+                <div class="no-result">
+                    No institution found.
+                </div>
+            `;
+
+        } else {
+
+            institutionResults.innerHTML =
+                matches.map(item => `
+                    <div
+                        class="institution-option"
+                        onclick="selectInstitution('${item.replace(/'/g, "\\'")}')"
+                    >
+                        ${item}
+                    </div>
+                `).join("");
+
+        }
+
+
+        institutionResults.classList.add("show");
+
+    }
+
+
+    function selectInstitution(name) {
+
+        institutionInput.value = name;
+
+        institutionResults.classList.remove(
+            "show"
+        );
+
+    }
+
+
+    institutionInput.addEventListener(
+        "focus",
+        () => showInstitutions(
+            institutionInput.value
+        )
+    );
+
+
+    institutionInput.addEventListener(
+        "input",
+        () => showInstitutions(
+            institutionInput.value
+        )
+    );
+
+
+    document.addEventListener(
+        "click",
+        event => {
+
+            if (
+                !institutionInput.contains(event.target) &&
+                !institutionResults.contains(event.target)
+            ) {
+
+                institutionResults.classList.remove(
+                    "show"
+                );
+
+            }
+
+        }
+    );
+
+
+    /* =========================================
+       PASSWORD
+    ========================================= */
+
+    const passwordInput =
+        document.getElementById(
+            "passwordInput"
+        );
+
+    const passwordToggle =
+        document.getElementById(
+            "passwordToggle"
+        );
+
+
+    passwordToggle.addEventListener(
+        "click",
+        () => {
+
+            if (
+                passwordInput.type === "password"
+            ) {
+
+                passwordInput.type = "text";
+
+                passwordToggle.textContent =
+                    "HIDE";
+
+            } else {
+
+                passwordInput.type =
+                    "password";
+
+                passwordToggle.textContent =
+                    "SHOW";
+
+            }
+
+        }
+    );
+
+
+    /* =========================================
+       LOGIN
+    ========================================= */
+
+    document
+        .getElementById("studentLoginForm")
+        .addEventListener(
+            "submit",
+            async event => {
+
+                event.preventDefault();
+
+
+                const name =
+                    document.getElementById(
+                        "studentNameInput"
+                    ).value.trim();
+
+
+                const institution =
+                    institutionInput.value.trim();
+
+
+                const email =
+                    document.getElementById(
+                        "emailInput"
+                    ).value.trim();
+
+
+                const password =
+                    passwordInput.value;
+
+
+                const errorBox =
+                    document.getElementById(
+                        "loginError"
+                    );
+
+
+                errorBox.style.display =
+                    "none";
+
+
+                if (!name || !institution ||
+                    !email || !password) {
+
+                    errorBox.textContent =
+                        "Please complete all fields.";
+
+                    errorBox.style.display =
+                        "block";
+
+                    return;
+
+                }
+
+
+                const submitButton =
+                    document.querySelector(
+                        ".login-submit"
+                    );
+
+
+                submitButton.disabled = true;
+
+                submitButton.textContent =
+                    "Authenticating...";
+
+
+                try {
+
+                    /*
+                     * First attempt normal backend login.
+                     */
+
+                    const response =
+                        await fetch(
+                            `${API_URL}/api/auth/login`,
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body: JSON.stringify({
+                                    email,
+                                    password
+                                })
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            data.error ||
+                            "Invalid login credentials."
+                        );
+
+                    }
+
+
+                    /*
+                     * Save authenticated session.
+                     */
+
+                    sessionStorage.setItem(
+                        "authToken",
+                        data.token
+                    );
+
+                    sessionStorage.setItem(
+                        "studentName",
+                        name
+                    );
+
+                    sessionStorage.setItem(
+                        "institution",
+                        institution
+                    );
+
+                    sessionStorage.setItem(
+                        "role",
+                        "student"
+                    );
+
+
+                    window.location.href =
+                        "student-dashboard.html";
+
+
+                } catch (error) {
+
+                    console.error(error);
+
+
+                    errorBox.textContent =
+                        error.message ||
+                        "Unable to login. Please check your credentials.";
+
+
+                    errorBox.style.display =
+                        "block";
+
+
+                    submitButton.disabled =
+                        false;
+
+                    submitButton.textContent =
+                        "Continue to Student Dashboard →";
+
+                }
+
+            }
+        );
+
+</script>
+
+</body>
+</html>

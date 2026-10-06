@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lesson | LearnSphere</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dashboard-page">
+
+<header class="topbar">
+
+    <div class="brand">
+        <div class="brand-mark">LS</div>
+
+        <div>
+            <h2>LearnSphere</h2>
+            <span>Secure Learning OS</span>
+        </div>
+    </div>
+
+    <div class="dashboard-nav">
+
+        <div class="session-status">
+            <span class="status-dot"></span>
+            Secure session
+        </div>
+
+        <button class="logout-button" onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="dashboard-container">
+
+    <a
+        id="backLink"
+        href="#"
+        style="
+            display:inline-block;
+            margin-bottom:25px;
+            color:#a78bfa;
+            text-decoration:none;
+            font-weight:700;
+        "
+    >
+        ← Back to Course
+    </a>
+
+
+    <section
+        class="dashboard-panel"
+        style="margin-bottom:20px;"
+    >
+
+        <p class="panel-label" id="lessonNumber">
+            LESSON
+        </p>
+
+        <h1
+            id="lessonTitle"
+            style="
+                margin-top:10px;
+                font-size:38px;
+            "
+        >
+            Loading lesson...
+        </h1>
+
+        <p
+            id="lessonIntro"
+            style="
+                margin-top:12px;
+                color:#8190ad;
+                line-height:1.7;
+                font-size:16px;
+            "
+        ></p>
+
+    </section>
+
+
+    <section
+        class="dashboard-panel"
+        id="lessonContent"
+        style="
+            line-height:1.8;
+            font-size:15px;
+        "
+    ></section>
+
+
+    <section
+        class="dashboard-panel"
+        style="
+            margin-top:20px;
+            display:flex;
+            justify-content:space-between;
+            gap:15px;
+            flex-wrap:wrap;
+        "
+    >
+
+        <button
+            id="previousButton"
+            class="secondary-button"
+        >
+            ← Previous
+        </button>
+
+        <button
+            id="completeButton"
+            class="primary-button"
+        >
+            ✓ Mark Lesson Complete
+        </button>
+
+        <button
+            id="nextButton"
+            class="primary-button"
+        >
+            Next Lesson →
+        </button>
+
+    </section>
+
+</main>
+
+
+<script>
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const courseName =
+    params.get("course");
+
+const courseId =
+    params.get("courseId");
+
+const lessonIndex =
+    Number(params.get("lesson"));
+
+const token =
+    sessionStorage.getItem("authToken");
+
+
+if (!token) {
+    window.location.href = "student-login.html";
+}
+
+
+/* =====================================================
+   ALL COURSE LESSONS
+===================================================== */
+
+const lessons = {
+
+
+/* =====================================================
+   DSA
+===================================================== */
+
+"Data Structures & Algorithms": [
+
+{
+title:"Introduction to Data Structures",
+
+intro:"Learn how data is organized and managed efficiently.",
+
+content:`
+
+<h2>What is a Data Structure?</h2>
+
+<p>
+A data structure is a way of organizing and storing
+data so that it can be accessed and modified efficiently.
+</p>
+
+<h2>Why are Data Structures Important?</h2>
+
+<ul>
+<li>Efficient data storage</li>
+<li>Faster searching</li>
+<li>Efficient insertion and deletion</li>
+<li>Better memory organization</li>
+<li>Improved program performance</li>
+</ul>
+
+<h2>Types of Data Structures</h2>
+
+<ul>
+<li><strong>Linear:</strong> Arrays, Linked Lists, Stacks and Queues</li>
+<li><strong>Non-linear:</strong> Trees and Graphs</li>
+</ul>
+
+<div class="lesson-note">
+<strong>Key idea:</strong>
+Choosing the right data structure can improve algorithm efficiency.
+</div>
+
+`
+},
+
+{
+title:"Arrays and Linked Lists",
+
+intro:"Understand two fundamental linear data structures.",
+
+content:`
+
+<h2>Arrays</h2>
+
+<p>
+An array stores elements in contiguous memory locations.
+Each element can normally be accessed using an index.
+</p>
+
+<pre>
+int marks[] = {80, 75, 90, 85};
+</pre>
+
+<h2>Linked Lists</h2>
+
+<p>
+A linked list contains nodes where each node stores data
+and a reference to another node.
+</p>
+
+<pre>
+[10] → [20] → [30] → NULL
+</pre>
+
+<h2>Difference</h2>
+
+<ul>
+<li>Arrays provide fast indexed access.</li>
+<li>Linked lists make insertion and deletion easier.</li>
+<li>Arrays normally use contiguous memory.</li>
+</ul>
+
+`
+},
+
+{
+title:"Stacks and Queues",
+
+intro:"Learn LIFO and FIFO data structures.",
+
+content:`
+
+<h2>Stack</h2>
+
+<p>
+A stack follows the <strong>LIFO</strong> principle:
+Last In, First Out.
+</p>
+
+<h3>Operations</h3>
+
+<ul>
+<li>Push</li>
+<li>Pop</li>
+<li>Peek</li>
+</ul>
+
+<h2>Queue</h2>
+
+<p>
+A queue follows the <strong>FIFO</strong> principle:
+First In, First Out.
+</p>
+
+<h3>Operations</h3>
+
+<ul>
+<li>Enqueue</li>
+<li>Dequeue</li>
+<li>Front</li>
+</ul>
+
+<div class="lesson-note">
+Stack → LIFO<br>
+Queue → FIFO
+</div>
+
+`
+},
+
+{
+title:"Trees and Binary Search Trees",
+
+intro:"Learn how hierarchical data is represented using trees.",
+
+content:`
+
+<h2>Tree</h2>
+
+<p>
+A tree is a non-linear data structure made of nodes
+connected by edges.
+</p>
+
+<pre>
+        10
+       /  \\
+      5    15
+     / \\    \\
+    2   7    20
+</pre>
+
+<h2>Binary Search Tree</h2>
+
+<p>
+A Binary Search Tree follows this rule:
+</p>
+
+<ul>
+<li>Smaller values go to the left.</li>
+<li>Larger values go to the right.</li>
+</ul>
+
+`
+},
+
+{
+title:"Graphs and Graph Traversal",
+
+intro:"Understand vertices, edges and graph traversal.",
+
+content:`
+
+<h2>Graphs</h2>
+
+<p>
+A graph consists of vertices and edges.
+It is useful for representing relationships and connections.
+</p>
+
+<h2>Examples</h2>
+
+<ul>
+<li>Social networks</li>
+<li>Road networks</li>
+<li>Computer networks</li>
+<li>Flight routes</li>
+</ul>
+
+<h2>BFS</h2>
+
+<p>
+Breadth First Search explores nodes level by level
+and commonly uses a queue.
+</p>
+
+<h2>DFS</h2>
+
+<p>
+Depth First Search explores deeply before backtracking.
+It can use recursion or a stack.
+</p>
+
+`
+},
+
+{
+title:"Sorting Algorithms",
+
+intro:"Learn how algorithms arrange data into an ordered sequence.",
+
+content:`
+
+<h2>Sorting</h2>
+
+<p>
+Sorting arranges data in ascending or descending order.
+</p>
+
+<h2>Common Sorting Algorithms</h2>
+
+<ul>
+<li>Bubble Sort</li>
+<li>Selection Sort</li>
+<li>Insertion Sort</li>
+<li>Merge Sort</li>
+<li>Quick Sort</li>
+<li>Heap Sort</li>
+</ul>
+
+<h2>Bubble Sort</h2>
+
+<p>
+Bubble Sort repeatedly compares adjacent elements and
+swaps them when they are in the wrong order.
+</p>
+
+`
+},
+
+{
+title:"Searching Algorithms",
+
+intro:"Learn how algorithms locate values in a collection.",
+
+content:`
+
+<h2>Linear Search</h2>
+
+<p>
+Linear search checks elements one by one.
+</p>
+
+<pre>
+10 → 20 → 30 → 40 ✓
+</pre>
+
+<h2>Binary Search</h2>
+
+<p>
+Binary search repeatedly divides a sorted collection
+into two halves.
+</p>
+
+<h2>Important</h2>
+
+<ul>
+<li>Linear search can work on unsorted data.</li>
+<li>Binary search requires sorted data.</li>
+<li>Binary search is efficient for large sorted collections.</li>
+</ul>
+
+`
+},
+
+{
+title:"Time and Space Complexity",
+
+intro:"Learn how to measure algorithm efficiency.",
+
+content:`
+
+<h2>Time Complexity</h2>
+
+<p>
+Time complexity describes how the running time of an
+algorithm grows as the input size increases.
+</p>
+
+<h2>Common Big O Notations</h2>
+
+<ul>
+<li><strong>O(1)</strong> — Constant</li>
+<li><strong>O(log n)</strong> — Logarithmic</li>
+<li><strong>O(n)</strong> — Linear</li>
+<li><strong>O(n log n)</strong> — Linearithmic</li>
+<li><strong>O(n²)</strong> — Quadratic</li>
+</ul>
+
+<h2>Space Complexity</h2>
+
+<p>
+Space complexity describes the additional memory required
+by an algorithm.
+</p>
+
+`
+}
+
+],
+
+
+
+/* =====================================================
+   DBMS
+===================================================== */
+
+"Database Management Systems": [
+
+{
+title:"Introduction to DBMS",
+
+intro:"Learn what databases are and why database management systems are used.",
+
+content:`
+
+<h2>What is a Database?</h2>
+
+<p>
+A database is an organized collection of information
+that can be stored, accessed and managed efficiently.
+</p>
+
+<h2>What is DBMS?</h2>
+
+<p>
+A Database Management System is software used to create,
+store, retrieve and manage data in databases.
+</p>
+
+<h2>Examples</h2>
+
+<ul>
+<li>MySQL</li>
+<li>PostgreSQL</li>
+<li>Oracle Database</li>
+<li>Microsoft SQL Server</li>
+</ul>
+
+<h2>Advantages of DBMS</h2>
+
+<ul>
+<li>Data security</li>
+<li>Reduced redundancy</li>
+<li>Data consistency</li>
+<li>Concurrent access</li>
+<li>Backup and recovery</li>
+</ul>
+
+`
+},
+
+{
+title:"Relational Model",
+
+intro:"Understand tables, rows, columns and relationships.",
+
+content:`
+
+<h2>Relational Database</h2>
+
+<p>
+A relational database stores information using tables.
+</p>
+
+<h2>Table</h2>
+
+<p>
+A table consists of rows and columns.
+</p>
+
+<pre>
+Student
+----------------
+ID | Name | Age
+1  | Ram  | 20
+2  | Ravi | 21
+</pre>
+
+<h2>Row</h2>
+
+<p>
+A row represents one record.
+</p>
+
+<h2>Column</h2>
+
+<p>
+A column represents an attribute of the data.
+</p>
+
+`
+},
+
+{
+title:"SQL Basics",
+
+intro:"Learn the basic SQL commands used to work with databases.",
+
+content:`
+
+<h2>SELECT</h2>
+
+<pre>
+SELECT * FROM students;
+</pre>
+
+<h2>INSERT</h2>
+
+<pre>
+INSERT INTO students
+VALUES (1, 'Ram', 20);
+</pre>
+
+<h2>UPDATE</h2>
+
+<pre>
+UPDATE students
+SET age = 21
+WHERE id = 1;
+</pre>
+
+<h2>DELETE</h2>
+
+<pre>
+DELETE FROM students
+WHERE id = 1;
+</pre>
+
+<div class="lesson-note">
+SQL allows applications to communicate with relational databases.
+</div>
+
+`
+},
+
+{
+title:"Keys and Constraints",
+
+intro:"Learn how databases maintain relationships and data integrity.",
+
+content:`
+
+<h2>Primary Key</h2>
+
+<p>
+A primary key uniquely identifies each record in a table.
+</p>
+
+<pre>
+CREATE TABLE students (
+    id INT PRIMARY KEY,
+    name VARCHAR(100)
+);
+</pre>
+
+<h2>Foreign Key</h2>
+
+<p>
+A foreign key creates a relationship between tables.
+</p>
+
+<h2>Other Constraints</h2>
+
+<ul>
+<li>NOT NULL</li>
+<li>UNIQUE</li>
+<li>CHECK</li>
+<li>DEFAULT</li>
+<li>PRIMARY KEY</li>
+<li>FOREIGN KEY</li>
+</ul>
+
+`
+},
+
+{
+title:"Normalization",
+
+intro:"Learn how normalization reduces redundancy and improves database design.",
+
+content:`
+
+<h2>What is Normalization?</h2>
+
+<p>
+Normalization is a process of organizing database tables
+to reduce redundancy and improve data integrity.
+</p>
+
+<h2>First Normal Form</h2>
+
+<p>
+Each field should contain atomic values.
+</p>
+
+<h2>Second Normal Form</h2>
+
+<p>
+The table should be in 1NF and non-key attributes should
+depend on the complete primary key.
+</p>
+
+<h2>Third Normal Form</h2>
+
+<p>
+The table should be in 2NF and non-key attributes should
+not depend on other non-key attributes.
+</p>
+
+<div class="lesson-note">
+Normalization helps create cleaner and more maintainable databases.
+</div>
+
+`
+},
+
+{
+title:"Transactions",
+
+intro:"Understand how databases maintain reliable operations using transactions.",
+
+content:`
+
+<h2>Transaction</h2>
+
+<p>
+A transaction is a sequence of database operations treated
+as one logical unit.
+</p>
+
+<h2>ACID Properties</h2>
+
+<ul>
+<li><strong>Atomicity:</strong> All operations happen or none happen.</li>
+<li><strong>Consistency:</strong> Data remains valid.</li>
+<li><strong>Isolation:</strong> Transactions do not interfere improperly.</li>
+<li><strong>Durability:</strong> Committed changes are preserved.</li>
+</ul>
+
+`
+},
+
+{
+title:"Indexing",
+
+intro:"Learn how indexes improve database query performance.",
+
+content:`
+
+<h2>What is an Index?</h2>
+
+<p>
+An index is a data structure that helps the database find
+records faster.
+</p>
+
+<pre>
+CREATE INDEX idx_student_name
+ON students(name);
+</pre>
+
+<h2>Advantages</h2>
+
+<ul>
+<li>Faster searches</li>
+<li>Improved query performance</li>
+</ul>
+
+<h2>Disadvantage</h2>
+
+<p>
+Indexes require additional storage and can increase the
+cost of insert and update operations.
+</p>
+
+`
+},
+
+{
+title:"Database Security",
+
+intro:"Learn how databases protect sensitive information.",
+
+content:`
+
+<h2>Database Security</h2>
+
+<p>
+Database security protects stored information from
+unauthorized access and misuse.
+</p>
+
+<h2>Important Techniques</h2>
+
+<ul>
+<li>Authentication</li>
+<li>Authorization</li>
+<li>Encryption</li>
+<li>Access control</li>
+<li>Backups</li>
+<li>Input validation</li>
+</ul>
+
+<div class="lesson-note">
+Never trust user input directly. Applications should validate
+and securely process database requests.
+</div>
+
+`
+}
+
+],
+
+
+
+/* =====================================================
+   OPERATING SYSTEMS
+===================================================== */
+
+"Operating Systems": [
+
+{
+title:"Introduction to Operating Systems",
+
+intro:"Learn what an operating system does and why computers need one.",
+
+content:`
+
+<h2>What is an Operating System?</h2>
+
+<p>
+An operating system is system software that manages
+computer hardware and provides services for applications.
+</p>
+
+<h2>Examples</h2>
+
+<ul>
+<li>Windows</li>
+<li>Linux</li>
+<li>macOS</li>
+<li>Android</li>
+<li>iOS</li>
+</ul>
+
+<h2>Main Functions</h2>
+
+<ul>
+<li>Process management</li>
+<li>Memory management</li>
+<li>File management</li>
+<li>Device management</li>
+<li>Security</li>
+</ul>
+
+`
+},
+
+{
+title:"Processes",
+
+intro:"Understand processes and how operating systems manage running programs.",
+
+content:`
+
+<h2>Process</h2>
+
+<p>
+A process is a program that is currently being executed.
+</p>
+
+<h2>Process States</h2>
+
+<ul>
+<li>New</li>
+<li>Ready</li>
+<li>Running</li>
+<li>Waiting</li>
+<li>Terminated</li>
+</ul>
+
+<pre>
+New → Ready → Running → Terminated
+              ↓
+           Waiting
+              ↓
+            Ready
+</pre>
+
+<h2>Process Control Block</h2>
+
+<p>
+The operating system maintains information about a process
+using a Process Control Block.
+</p>
+
+`
+},
+
+{
+title:"Threads",
+
+intro:"Learn how threads allow processes to perform multiple tasks.",
+
+content:`
+
+<h2>Thread</h2>
+
+<p>
+A thread is the smallest unit of CPU execution within a process.
+</p>
+
+<h2>Benefits</h2>
+
+<ul>
+<li>Better responsiveness</li>
+<li>Resource sharing</li>
+<li>Improved concurrency</li>
+<li>Lower overhead than separate processes</li>
+</ul>
+
+<h2>Process vs Thread</h2>
+
+<p>
+Processes generally have separate memory spaces, while
+threads within the same process share many resources.
+</p>
+
+`
+},
+
+{
+title:"CPU Scheduling",
+
+intro:"Learn how the operating system decides which process gets CPU time.",
+
+content:`
+
+<h2>CPU Scheduling</h2>
+
+<p>
+CPU scheduling selects a process from the ready queue
+for execution.
+</p>
+
+<h2>Common Algorithms</h2>
+
+<ul>
+<li>First Come First Serve</li>
+<li>Shortest Job First</li>
+<li>Priority Scheduling</li>
+<li>Round Robin</li>
+</ul>
+
+<h2>Round Robin</h2>
+
+<p>
+Round Robin assigns each process a fixed time slice
+called a time quantum.
+</p>
+
+<div class="lesson-note">
+Scheduling aims to use the CPU efficiently while providing
+fair and responsive execution.
+</div>
+
+`
+},
+
+{
+title:"Process Synchronization",
+
+intro:"Understand how operating systems coordinate processes that share resources.",
+
+content:`
+
+<h2>Why Synchronization?</h2>
+
+<p>
+When multiple processes or threads access shared data,
+incorrect results can occur if access is not controlled.
+</p>
+
+<h2>Critical Section</h2>
+
+<p>
+A critical section is the part of a program where shared
+resources are accessed.
+</p>
+
+<h2>Synchronization Tools</h2>
+
+<ul>
+<li>Mutex</li>
+<li>Semaphore</li>
+<li>Monitor</li>
+</ul>
+
+<div class="lesson-note">
+Synchronization helps prevent race conditions and maintains
+data consistency.
+</div>
+
+`
+},
+
+{
+title:"Deadlocks",
+
+intro:"Learn how processes can become permanently blocked while waiting for resources.",
+
+content:`
+
+<h2>Deadlock</h2>
+
+<p>
+A deadlock occurs when processes wait indefinitely for
+resources held by one another.
+</p>
+
+<h2>Four Necessary Conditions</h2>
+
+<ul>
+<li>Mutual Exclusion</li>
+<li>Hold and Wait</li>
+<li>No Preemption</li>
+<li>Circular Wait</li>
+</ul>
+
+<h2>Deadlock Handling</h2>
+
+<ul>
+<li>Prevention</li>
+<li>Avoidance</li>
+<li>Detection</li>
+<li>Recovery</li>
+</ul>
+
+`
+},
+
+{
+title:"Memory Management",
+
+intro:"Understand how operating systems allocate and manage memory.",
+
+content:`
+
+<h2>Memory Management</h2>
+
+<p>
+The operating system manages primary memory and allocates
+memory to processes.
+</p>
+
+<h2>Important Concepts</h2>
+
+<ul>
+<li>Paging</li>
+<li>Segmentation</li>
+<li>Virtual Memory</li>
+<li>Page Replacement</li>
+</ul>
+
+<h2>Paging</h2>
+
+<p>
+Paging divides logical memory into fixed-size pages and
+physical memory into frames.
+</p>
+
+<div class="lesson-note">
+Virtual memory allows a system to use storage as an extension
+of physical memory.
+</div>
+
+`
+},
+
+{
+title:"File Systems",
+
+intro:"Learn how operating systems organize and manage files.",
+
+content:`
+
+<h2>File System</h2>
+
+<p>
+A file system provides a way to organize, store and retrieve
+files from storage devices.
+</p>
+
+<h2>File Operations</h2>
+
+<ul>
+<li>Create</li>
+<li>Open</li>
+<li>Read</li>
+<li>Write</li>
+<li>Close</li>
+<li>Delete</li>
+</ul>
+
+<h2>Directories</h2>
+
+<p>
+Directories organize files into a hierarchical structure.
+</p>
+
+<div class="lesson-note">
+Examples of file systems include NTFS, ext4 and APFS.
+</div>
+
+`
+}
+
+],
+
+
+
+/* =====================================================
+   COMPUTER NETWORKS
+===================================================== */
+
+"Computer Networks": [
+
+{
+title:"Introduction to Computer Networks",
+
+intro:"Learn how computers communicate and share information.",
+
+content:`
+
+<h2>Computer Network</h2>
+
+<p>
+A computer network is a collection of connected devices
+that communicate and share resources.
+</p>
+
+<h2>Examples</h2>
+
+<ul>
+<li>LAN</li>
+<li>WAN</li>
+<li>MAN</li>
+<li>Internet</li>
+</ul>
+
+<h2>Network Devices</h2>
+
+<ul>
+<li>Router</li>
+<li>Switch</li>
+<li>Hub</li>
+<li>Access Point</li>
+</ul>
+
+`
+},
+
+{
+title:"OSI Model",
+
+intro:"Learn the seven layers used to understand network communication.",
+
+content:`
+
+<h2>OSI Model</h2>
+
+<p>
+The OSI model divides network communication into seven layers.
+</p>
+
+<ol>
+<li>Physical</li>
+<li>Data Link</li>
+<li>Network</li>
+<li>Transport</li>
+<li>Session</li>
+<li>Presentation</li>
+<li>Application</li>
+</ol>
+
+<div class="lesson-note">
+Remember the order from bottom to top:
+Physical → Data Link → Network → Transport →
+Session → Presentation → Application
+</div>
+
+`
+},
+
+{
+title:"TCP/IP Model",
+
+intro:"Understand the practical protocol model used by the Internet.",
+
+content:`
+
+<h2>TCP/IP Model</h2>
+
+<p>
+The TCP/IP model describes how data travels across
+networked systems.
+</p>
+
+<h2>Main Layers</h2>
+
+<ul>
+<li>Network Access</li>
+<li>Internet</li>
+<li>Transport</li>
+<li>Application</li>
+</ul>
+
+<h2>Important Protocols</h2>
+
+<ul>
+<li>IP</li>
+<li>TCP</li>
+<li>UDP</li>
+<li>HTTP</li>
+<li>DNS</li>
+</ul>
+
+`
+},
+
+{
+title:"IP Addressing",
+
+intro:"Learn how devices are identified on a network.",
+
+content:`
+
+<h2>IP Address</h2>
+
+<p>
+An IP address identifies a device or network interface
+on an IP network.
+</p>
+
+<h2>IPv4</h2>
+
+<pre>
+192.168.1.10
+</pre>
+
+<p>
+IPv4 addresses contain 32 bits.
+</p>
+
+<h2>IPv6</h2>
+
+<p>
+IPv6 uses 128-bit addresses and provides a much larger
+address space.
+</p>
+
+`
+},
+
+{
+title:"Routing",
+
+intro:"Learn how routers determine paths for network traffic.",
+
+content:`
+
+<h2>Routing</h2>
+
+<p>
+Routing is the process of determining a path for packets
+to travel from a source to a destination.
+</p>
+
+<h2>Router</h2>
+
+<p>
+A router connects networks and forwards packets based
+on routing information.
+</p>
+
+<h2>Routing Concepts</h2>
+
+<ul>
+<li>Routing table</li>
+<li>Next hop</li>
+<li>Default route</li>
+<li>Static routing</li>
+<li>Dynamic routing</li>
+</ul>
+
+`
+},
+
+{
+title:"Transport Layer",
+
+intro:"Understand reliable and fast communication using TCP and UDP.",
+
+content:`
+
+<h2>TCP</h2>
+
+<p>
+TCP provides connection-oriented and reliable communication.
+</p>
+
+<ul>
+<li>Reliable delivery</li>
+<li>Ordering</li>
+<li>Flow control</li>
+<li>Congestion control</li>
+</ul>
+
+<h2>UDP</h2>
+
+<p>
+UDP provides a connectionless communication mechanism
+with lower overhead.
+</p>
+
+<h2>TCP vs UDP</h2>
+
+<p>
+TCP focuses on reliability, while UDP is commonly used
+when low overhead and speed are important.
+</p>
+
+`
+},
+
+{
+title:"Network Security",
+
+intro:"Learn the basic principles used to protect computer networks.",
+
+content:`
+
+<h2>Network Security</h2>
+
+<p>
+Network security protects systems and communications
+from unauthorized access and attacks.
+</p>
+
+<h2>Common Security Measures</h2>
+
+<ul>
+<li>Firewalls</li>
+<li>Encryption</li>
+<li>Authentication</li>
+<li>Access control</li>
+<li>Intrusion detection</li>
+</ul>
+
+<div class="lesson-note">
+Security should be considered throughout the design
+and operation of a network.
+</div>
+
+`
+},
+
+{
+title:"Application Layer",
+
+intro:"Learn how applications use network protocols to communicate.",
+
+content:`
+
+<h2>Application Layer</h2>
+
+<p>
+The application layer provides network services directly
+to applications and users.
+</p>
+
+<h2>Important Protocols</h2>
+
+<ul>
+<li>HTTP / HTTPS</li>
+<li>DNS</li>
+<li>FTP</li>
+<li>SMTP</li>
+<li>SSH</li>
+</ul>
+
+<h2>Example</h2>
+
+<p>
+When you open a website, your browser communicates with
+a web server using HTTP or HTTPS.
+</p>
+
+`
+}
+
+]
+
+};
+
+
+
+/* =====================================================
+   LOAD CURRENT LESSON
+===================================================== */
+
+const courseLessons =
+    lessons[courseName] || [];
+
+const currentLesson =
+    courseLessons[lessonIndex];
+
+
+if (!currentLesson) {
+
+    document.getElementById(
+        "lessonTitle"
+    ).textContent =
+        "Lesson not found";
+
+} else {
+
+    renderLesson();
+
+}
+
+
+
+/* =====================================================
+   RENDER
+===================================================== */
+
+function renderLesson() {
+
+    document.getElementById(
+        "lessonNumber"
+    ).textContent =
+        `LESSON ${lessonIndex + 1} OF ${courseLessons.length}`;
+
+
+    document.getElementById(
+        "lessonTitle"
+    ).textContent =
+        currentLesson.title;
+
+
+    document.getElementById(
+        "lessonIntro"
+    ).textContent =
+        currentLesson.intro;
+
+
+    document.getElementById(
+        "lessonContent"
+    ).innerHTML =
+        currentLesson.content;
+
+
+    document.getElementById(
+        "backLink"
+    ).href =
+        `course.html?id=${courseId}`;
+
+
+    setupButtons();
+
+}
+
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+function setupButtons() {
+
+    const previous =
+        document.getElementById(
+            "previousButton"
+        );
+
+    const next =
+        document.getElementById(
+            "nextButton"
+        );
+
+    const complete =
+        document.getElementById(
+            "completeButton"
+        );
+
+
+    if (lessonIndex === 0) {
+
+        previous.disabled = true;
+
+        previous.style.opacity =
+            "0.4";
+
+    } else {
+
+        previous.onclick = () => {
+
+            goToLesson(
+                lessonIndex - 1
+            );
+
+        };
+
+    }
+
+
+    if (
+        lessonIndex ===
+        courseLessons.length - 1
+    ) {
+
+        next.textContent =
+            "Finish Course ✓";
+
+        next.onclick = () => {
+
+            markComplete();
+
+            window.location.href =
+                `course.html?id=${courseId}`;
+
+        };
+
+    } else {
+
+        next.onclick = () => {
+
+            goToLesson(
+                lessonIndex + 1
+            );
+
+        };
+
+    }
+
+
+    complete.onclick =
+        markComplete;
+
+
+    updateCompleteButton();
+
+}
+
+
+
+/* =====================================================
+   COMPLETE LESSON
+===================================================== */
+
+function markComplete() {
+
+    const key =
+        `course_${courseId}_completed`;
+
+
+    let completed = [];
+
+
+    try {
+
+        completed =
+            JSON.parse(
+                sessionStorage.getItem(
+                    key
+                )
+            ) || [];
+
+    } catch {
+
+        completed = [];
+
+    }
+
+
+    if (
+        !completed.includes(
+            lessonIndex
+        )
+    ) {
+
+        completed.push(
+            lessonIndex
+        );
+
+    }
+
+
+    sessionStorage.setItem(
+        key,
+        JSON.stringify(
+            completed
+        )
+    );
+
+
+    updateCompleteButton();
+
+}
+
+
+
+/* =====================================================
+   UPDATE BUTTON
+===================================================== */
+
+function updateCompleteButton() {
+
+    const key =
+        `course_${courseId}_completed`;
+
+
+    let completed = [];
+
+
+    try {
+
+        completed =
+            JSON.parse(
+                sessionStorage.getItem(
+                    key
+                )
+            ) || [];
+
+    } catch {
+
+        completed = [];
+
+    }
+
+
+    const button =
+        document.getElementById(
+            "completeButton"
+        );
+
+
+    if (
+        completed.includes(
+            lessonIndex
+        )
+    ) {
+
+        button.textContent =
+            "✓ Lesson Completed";
+
+        button.style.background =
+            "#174c3b";
+
+        button.style.color =
+            "#45e6a5";
+
+    }
+
+}
+
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function goToLesson(index) {
+
+    window.location.href =
+        `lesson.html?course=${encodeURIComponent(
+            courseName
+        )}&courseId=${courseId}&lesson=${index}`;
+
+}
+
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout() {
+
+    sessionStorage.clear();
+
+    window.location.href =
+        "student-login.html";
+
+}
+
+</script>
+
+</body>
+</html>

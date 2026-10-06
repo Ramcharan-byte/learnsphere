@@ -1,0 +1,2007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LearnSphere | Student Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =========================================
+           DASHBOARD
+        ========================================= */
+
+        body {
+            min-height: 100vh;
+        }
+
+        .dashboard-shell {
+            min-height: 100vh;
+        }
+
+        /* ---------- Header ---------- */
+
+        .dashboard-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+
+            height: 68px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 4%;
+
+            background: rgba(7, 10, 16, 0.88);
+            border-bottom: 1px solid rgba(39, 48, 68, 0.8);
+
+            backdrop-filter: blur(18px);
+        }
+
+        .dashboard-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .dashboard-brand-mark {
+            width: 31px;
+            height: 31px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 8px;
+
+            background: linear-gradient(
+                135deg,
+                #7653ff,
+                #5639d8
+            );
+
+            color: white;
+            font-weight: 900;
+
+            box-shadow:
+                0 0 20px rgba(118, 83, 255, 0.25);
+        }
+
+        .dashboard-brand span:last-child span {
+            color: #a78bfa;
+        }
+
+        .dashboard-nav {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .dashboard-nav a {
+            padding: 8px 12px;
+
+            border-radius: 7px;
+
+            color: #8190ad;
+
+            font-size: 11px;
+            font-weight: 700;
+
+            transition: 0.2s ease;
+        }
+
+        .dashboard-nav a:hover,
+        .dashboard-nav a.active {
+            background: rgba(118, 83, 255, 0.09);
+            color: #d7d1ff;
+        }
+
+        .student-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .student-avatar {
+            width: 32px;
+            height: 32px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7653ff,
+                    #45e6a5
+                );
+
+            color: white;
+
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+        .student-profile-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .student-profile-name {
+            color: #e9edf6;
+
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .student-profile-role {
+            color: #687694;
+
+            font-size: 8px;
+        }
+
+        .logout-btn {
+            margin-left: 8px;
+
+            padding: 7px 11px;
+
+            border: 1px solid #273044;
+            border-radius: 7px;
+
+            background: transparent;
+
+            color: #8190ad;
+
+            font-size: 9px;
+            font-weight: 700;
+
+            transition: 0.2s ease;
+        }
+
+        .logout-btn:hover {
+            border-color: #ff6262;
+            color: #ff8a8a;
+        }
+
+
+        /* ---------- Main ---------- */
+
+        .dashboard-main {
+            width: 92%;
+            max-width: 1280px;
+
+            margin: auto;
+
+            padding: 42px 0 70px;
+        }
+
+
+        /* ---------- Welcome ---------- */
+
+        .welcome-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+
+            gap: 30px;
+
+            margin-bottom: 30px;
+        }
+
+        .welcome-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            color: #45e6a5;
+
+            font-size: 9px;
+            font-weight: 800;
+
+            letter-spacing: 1.3px;
+        }
+
+        .welcome-label span {
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+            background: #45e6a5;
+
+            box-shadow:
+                0 0 8px rgba(69, 230, 165, 0.8);
+        }
+
+        .welcome-section h1 {
+            margin-top: 8px;
+
+            font-size: clamp(30px, 4vw, 45px);
+
+            line-height: 1.05;
+
+            letter-spacing: -2px;
+        }
+
+        .welcome-section h1 span {
+            color: #a78bfa;
+        }
+
+        .welcome-text {
+            max-width: 570px;
+
+            margin-top: 11px;
+
+            color: #8190ad;
+
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .institution-badge {
+            padding: 9px 13px;
+
+            border: 1px solid #273044;
+
+            border-radius: 9px;
+
+            background: #0d121b;
+
+            color: #9aa8c0;
+
+            font-size: 9px;
+            font-weight: 700;
+
+            white-space: nowrap;
+        }
+
+
+        /* ---------- Stats ---------- */
+
+        .stats-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 12px;
+
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            padding: 19px;
+
+            border: 1px solid #273044;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #111722,
+                    #0d121b
+                );
+
+            transition: 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+
+            border-color: rgba(118, 83, 255, 0.4);
+        }
+
+        .stat-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-label {
+            color: #687694;
+
+            font-size: 9px;
+            font-weight: 800;
+
+            letter-spacing: 0.7px;
+            text-transform: uppercase;
+        }
+
+        .stat-icon {
+            width: 27px;
+            height: 27px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 7px;
+
+            background: rgba(118, 83, 255, 0.1);
+
+            color: #a78bfa;
+
+            font-size: 13px;
+        }
+
+        .stat-value {
+            margin-top: 13px;
+
+            color: #f4f6fb;
+
+            font-size: 25px;
+            font-weight: 850;
+        }
+
+        .stat-meta {
+            margin-top: 4px;
+
+            color: #687694;
+
+            font-size: 9px;
+        }
+
+        .stat-meta.green {
+            color: #45e6a5;
+        }
+
+
+        /* ---------- Content Grid ---------- */
+
+        .dashboard-grid {
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1.6fr)
+                minmax(300px, 0.8fr);
+
+            gap: 16px;
+
+            align-items: start;
+        }
+
+
+        /* ---------- Panel ---------- */
+
+        .dashboard-panel {
+            border: 1px solid #273044;
+
+            border-radius: 14px;
+
+            background: #10151f;
+
+            overflow: hidden;
+        }
+
+        .panel-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 19px 21px;
+
+            border-bottom: 1px solid #273044;
+        }
+
+        .panel-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-title-icon {
+            width: 30px;
+            height: 30px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 8px;
+
+            background: rgba(118, 83, 255, 0.1);
+
+            color: #a78bfa;
+        }
+
+        .panel-title h2 {
+            color: #edf1f8;
+
+            font-size: 14px;
+        }
+
+        .panel-title p {
+            margin-top: 2px;
+
+            color: #687694;
+
+            font-size: 9px;
+        }
+
+        .view-all {
+            color: #a78bfa;
+
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+
+        /* ---------- Courses ---------- */
+
+        .courses-list {
+            display: grid;
+            gap: 0;
+        }
+
+        .course-card {
+            position: relative;
+
+            padding: 19px 21px;
+
+            border-bottom: 1px solid rgba(39, 48, 68, 0.65);
+
+            background: transparent;
+
+            transition: 0.2s ease;
+
+            cursor: pointer;
+        }
+
+        .course-card:last-child {
+            border-bottom: none;
+        }
+
+        .course-card:hover {
+            background: rgba(118, 83, 255, 0.035);
+        }
+
+        .course-card-top {
+            display: flex;
+            align-items: center;
+
+            gap: 13px;
+        }
+
+        .course-icon {
+            width: 42px;
+            height: 42px;
+
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(118, 83, 255, 0.15),
+                    rgba(118, 83, 255, 0.04)
+                );
+
+            border: 1px solid rgba(118, 83, 255, 0.16);
+
+            color: #a78bfa;
+
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .course-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .course-info h3 {
+            color: #e9edf6;
+
+            font-size: 13px;
+        }
+
+        .course-info p {
+            margin-top: 3px;
+
+            color: #687694;
+
+            font-size: 9px;
+        }
+
+        .course-progress {
+            width: 105px;
+        }
+
+        .course-progress-top {
+            display: flex;
+            justify-content: space-between;
+
+            margin-bottom: 6px;
+
+            color: #687694;
+
+            font-size: 8px;
+        }
+
+        .course-progress-top strong {
+            color: #a78bfa;
+        }
+
+        .course-progress-bar {
+            height: 5px;
+
+            overflow: hidden;
+
+            border-radius: 20px;
+
+            background: #222a39;
+        }
+
+        .course-progress-fill {
+            height: 100%;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #7653ff,
+                    #a78bfa
+                );
+        }
+
+
+        /* ---------- Right Column ---------- */
+
+        .right-column {
+            display: grid;
+            gap: 16px;
+        }
+
+
+        /* ---------- AI ---------- */
+
+        .ai-panel {
+            position: relative;
+
+            border-color: rgba(118, 83, 255, 0.35);
+
+            background:
+                radial-gradient(
+                    circle at 90% 0%,
+                    rgba(118, 83, 255, 0.10),
+                    transparent 40%
+                ),
+                #10151f;
+        }
+
+        .ai-panel .panel-title-icon {
+            background: rgba(118, 83, 255, 0.16);
+
+            color: #c4b5fd;
+        }
+
+        .ai-online {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            color: #45e6a5;
+
+            font-size: 8px;
+            font-weight: 800;
+        }
+
+        .ai-online span {
+            width: 5px;
+            height: 5px;
+
+            border-radius: 50%;
+
+            background: #45e6a5;
+
+            box-shadow:
+                0 0 8px rgba(69, 230, 165, 0.8);
+        }
+
+        .ai-body {
+            padding: 20px;
+        }
+
+        .ai-intro {
+            color: #9aa8c0;
+
+            font-size: 10px;
+            line-height: 1.7;
+        }
+
+        .ai-suggestions {
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 6px;
+
+            margin-top: 13px;
+        }
+
+        .ai-suggestions button {
+            padding: 6px 8px;
+
+            border: 1px solid #273044;
+            border-radius: 6px;
+
+            background: #0c111a;
+
+            color: #8997b0;
+
+            font-size: 8px;
+
+            transition: 0.2s ease;
+        }
+
+        .ai-suggestions button:hover {
+            border-color: #7653ff;
+
+            color: #c4b5fd;
+        }
+
+        .copilot-box {
+            display: flex;
+
+            gap: 7px;
+
+            margin-top: 14px;
+        }
+
+        .copilot-box input {
+            min-width: 0;
+            flex: 1;
+
+            padding: 10px 11px;
+
+            border: 1px solid #273044;
+            border-radius: 8px;
+
+            outline: none;
+
+            background: #0c111a;
+
+            color: white;
+
+            font-size: 10px;
+        }
+
+        .copilot-box input::placeholder {
+            color: #59677f;
+        }
+
+        .copilot-box input:focus {
+            border-color: #7653ff;
+
+            box-shadow:
+                0 0 0 3px rgba(118, 83, 255, 0.08);
+        }
+
+        .copilot-box button {
+            padding: 0 13px;
+
+            border: none;
+            border-radius: 8px;
+
+            background: #7653ff;
+
+            color: white;
+
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+        .copilot-box button:hover {
+            background: #6947ed;
+        }
+
+        .ai-response {
+            min-height: 55px;
+
+            margin-top: 12px;
+
+            padding: 11px;
+
+            border: 1px solid #273044;
+            border-radius: 8px;
+
+            background: #0c111a;
+
+            color: #9eabc0;
+
+            font-size: 10px;
+            line-height: 1.7;
+        }
+
+        .ai-security-note {
+            display: inline-block;
+
+            margin-top: 12px;
+
+            padding: 6px 8px;
+
+            border: 1px solid rgba(69, 230, 165, 0.15);
+            border-radius: 6px;
+
+            background: rgba(69, 230, 165, 0.035);
+
+            color: #45e6a5;
+
+            font-size: 7px;
+            font-weight: 800;
+        }
+
+
+        /* ---------- Assessments ---------- */
+
+        .assessment-list {
+            padding: 4px 0;
+        }
+
+        .assessment-item {
+            display: flex;
+            align-items: center;
+
+            gap: 11px;
+
+            padding: 13px 19px;
+
+            border-bottom: 1px solid rgba(39, 48, 68, 0.55);
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+        .assessment-item:last-child {
+            border-bottom: none;
+        }
+
+        .assessment-item:hover {
+            background: rgba(118, 83, 255, 0.04);
+        }
+
+        .assessment-icon {
+            width: 31px;
+            height: 31px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 8px;
+
+            background: rgba(69, 230, 165, 0.07);
+
+            color: #45e6a5;
+
+            font-size: 11px;
+        }
+
+        .assessment-info {
+            flex: 1;
+        }
+
+        .assessment-info strong {
+            display: block;
+
+            color: #dce2ed;
+
+            font-size: 10px;
+        }
+
+        .assessment-info span {
+            display: block;
+
+            margin-top: 2px;
+
+            color: #687694;
+
+            font-size: 8px;
+        }
+
+        .assessment-arrow {
+            color: #687694;
+
+            font-size: 12px;
+        }
+
+
+        /* ---------- Security ---------- */
+
+        .security-mini {
+            padding: 18px 20px;
+        }
+
+        .security-mini-row {
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 9px 0;
+
+            color: #8997b0;
+
+            font-size: 9px;
+        }
+
+        .security-mini-row + .security-mini-row {
+            border-top: 1px solid rgba(39, 48, 68, 0.5);
+        }
+
+        .security-check {
+            width: 20px;
+            height: 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 6px;
+
+            background: rgba(69, 230, 165, 0.08);
+
+            color: #45e6a5;
+
+            font-size: 9px;
+        }
+
+
+        /* ---------- Loading ---------- */
+
+        .dashboard-loading {
+            padding: 35px;
+
+            text-align: center;
+
+            color: #687694;
+
+            font-size: 10px;
+        }
+
+
+        /* ---------- Responsive ---------- */
+
+        @media (max-width: 1050px) {
+
+            .dashboard-nav {
+                display: none;
+            }
+
+            .stats-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        @media (max-width: 650px) {
+
+            .dashboard-header {
+                padding: 0 4%;
+            }
+
+            .student-profile-info {
+                display: none;
+            }
+
+            .logout-btn {
+                margin-left: 0;
+            }
+
+            .dashboard-main {
+                width: 94%;
+
+                padding-top: 28px;
+            }
+
+            .welcome-section {
+                align-items: flex-start;
+
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stat-card {
+                padding: 14px;
+            }
+
+            .stat-value {
+                font-size: 21px;
+            }
+
+            .course-card-top {
+                align-items: flex-start;
+            }
+
+            .course-progress {
+                width: 80px;
+            }
+
+            .course-info p {
+                display: none;
+            }
+
+            .panel-title-row {
+                padding: 16px;
+            }
+
+            .ai-body {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="dashboard-shell">
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <header class="dashboard-header">
+
+        <a href="student-dashboard.html"
+           class="dashboard-brand">
+
+            <div class="dashboard-brand-mark">
+                L
+            </div>
+
+            <span>
+                Learn<span>Sphere</span>
+            </span>
+
+        </a>
+
+
+        <nav class="dashboard-nav">
+
+            <a href="student-dashboard.html"
+               class="active">
+                Dashboard
+            </a>
+
+            <a href="#courses">
+                My Learning
+            </a>
+
+            <a href="#assessments">
+                Assessments
+            </a>
+
+            <a href="#copilot">
+                AI Copilot
+            </a>
+
+        </nav>
+
+
+        <div class="student-profile">
+
+            <div class="student-avatar"
+                 id="studentAvatar">
+                S
+            </div>
+
+            <div class="student-profile-info">
+
+                <span class="student-profile-name"
+                      id="headerStudentName">
+                    Student
+                </span>
+
+                <span class="student-profile-role">
+                    STUDENT ACCOUNT
+                </span>
+
+            </div>
+
+            <button class="logout-btn"
+                    onclick="logout()">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================
+         MAIN
+    ========================================== -->
+
+    <main class="dashboard-main">
+
+
+        <!-- Welcome -->
+
+        <section class="welcome-section">
+
+            <div>
+
+                <div class="welcome-label">
+                    <span></span>
+                    SECURE STUDENT SESSION
+                </div>
+
+                <h1>
+                    Welcome back,
+                    <span id="studentName">
+                        Student
+                    </span>
+                </h1>
+
+                <p class="welcome-text">
+                    Continue your learning journey, complete assessments,
+                    track your progress and use your protected AI learning
+                    assistant.
+                </p>
+
+            </div>
+
+            <div class="institution-badge"
+                 id="institutionName">
+                Institution
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             STATS
+        ====================================== -->
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <span class="stat-label">
+                        Courses
+                    </span>
+
+                    <div class="stat-icon">
+                        ◈
+                    </div>
+
+                </div>
+
+                <div class="stat-value"
+                     id="courseCount">
+                    4
+                </div>
+
+                <div class="stat-meta">
+                    Available to you
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <span class="stat-label">
+                        Assessments
+                    </span>
+
+                    <div class="stat-icon">
+                        ✓
+                    </div>
+
+                </div>
+
+                <div class="stat-value">
+                    3
+                </div>
+
+                <div class="stat-meta">
+                    Ready to attempt
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <span class="stat-label">
+                        Progress
+                    </span>
+
+                    <div class="stat-icon">
+                        ↗
+                    </div>
+
+                </div>
+
+                <div class="stat-value">
+                    <span id="overallProgress">
+                        0
+                    </span>%
+                </div>
+
+                <div class="stat-meta green">
+                    Learning progress
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <span class="stat-label">
+                        AI Access
+                    </span>
+
+                    <div class="stat-icon">
+                        ✦
+                    </div>
+
+                </div>
+
+                <div class="stat-value">
+                    ON
+                </div>
+
+                <div class="stat-meta green">
+                    Student-only access
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             MAIN GRID
+        ====================================== -->
+
+        <section class="dashboard-grid">
+
+
+            <!-- =================================
+                 LEFT
+            ================================== -->
+
+            <div>
+
+                <!-- Courses -->
+
+                <div class="dashboard-panel"
+                     id="courses">
+
+                    <div class="panel-title-row">
+
+                        <div class="panel-title">
+
+                            <div class="panel-title-icon">
+                                ◈
+                            </div>
+
+                            <div>
+
+                                <h2>
+                                    My Learning
+                                </h2>
+
+                                <p>
+                                    Continue where you left off
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <span class="view-all">
+                            VIEW COURSES
+                        </span>
+
+                    </div>
+
+
+                    <div id="coursesList"
+                         class="courses-list">
+
+                        <div class="dashboard-loading">
+                            Loading courses...
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Assessments -->
+
+                <div class="dashboard-panel"
+                     id="assessments"
+                     style="margin-top:16px;">
+
+                    <div class="panel-title-row">
+
+                        <div class="panel-title">
+
+                            <div class="panel-title-icon">
+                                ✓
+                            </div>
+
+                            <div>
+
+                                <h2>
+                                    Assessments
+                                </h2>
+
+                                <p>
+                                    Test your understanding
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="assessment-list">
+
+                        <div class="assessment-item"
+                             onclick="openAssessment('binary')">
+
+                            <div class="assessment-icon">
+                                ◇
+                            </div>
+
+                            <div class="assessment-info">
+
+                                <strong>
+                                    Binary Trees Assignment
+                                </strong>
+
+                                <span>
+                                    Data Structures · Assignment
+                                </span>
+
+                            </div>
+
+                            <div class="assessment-arrow">
+                                →
+                            </div>
+
+                        </div>
+
+
+                        <div class="assessment-item"
+                             onclick="openAssessment('sql')">
+
+                            <div class="assessment-icon">
+                                ◫
+                            </div>
+
+                            <div class="assessment-info">
+
+                                <strong>
+                                    SQL Fundamentals Test
+                                </strong>
+
+                                <span>
+                                    DBMS · Test
+                                </span>
+
+                            </div>
+
+                            <div class="assessment-arrow">
+                                →
+                            </div>
+
+                        </div>
+
+
+                        <div class="assessment-item"
+                             onclick="openAssessment('network')">
+
+                            <div class="assessment-icon">
+                                ◉
+                            </div>
+
+                            <div class="assessment-info">
+
+                                <strong>
+                                    Network Security Quiz
+                                </strong>
+
+                                <span>
+                                    Computer Networks · Quiz
+                                </span>
+
+                            </div>
+
+                            <div class="assessment-arrow">
+                                →
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================
+                 RIGHT
+            ================================== -->
+
+            <div class="right-column">
+
+
+                <!-- AI Copilot -->
+
+                <div class="dashboard-panel ai-panel"
+                     id="copilot">
+
+                    <div class="panel-title-row">
+
+                        <div class="panel-title">
+
+                            <div class="panel-title-icon">
+                                ✦
+                            </div>
+
+                            <div>
+
+                                <h2>
+                                    AI Copilot
+                                </h2>
+
+                                <p>
+                                    Your protected learning assistant
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="ai-online">
+                            <span></span>
+                            ONLINE
+                        </div>
+
+                    </div>
+
+
+                    <div class="ai-body">
+
+                        <p class="ai-intro">
+                            Ask about concepts, practice questions,
+                            assessments or topics you're currently learning.
+                        </p>
+
+
+                        <div class="ai-suggestions">
+
+                            <button onclick="setQuestion('Explain Binary Trees simply')">
+                                Binary Trees
+                            </button>
+
+                            <button onclick="setQuestion('Explain SQL JOINs')">
+                                SQL JOINs
+                            </button>
+
+                            <button onclick="setQuestion('What is a process in OS?')">
+                                OS Processes
+                            </button>
+
+                            <button onclick="setQuestion('Explain the OSI model')">
+                                OSI Model
+                            </button>
+
+                        </div>
+
+
+                        <div class="copilot-box">
+
+                            <input
+                                id="aiQuestion"
+                                type="text"
+                                placeholder="Ask your learning question..."
+                                onkeydown="if(event.key==='Enter') askCopilot()"
+                            >
+
+                            <button onclick="askCopilot()">
+                                ASK
+                            </button>
+
+                        </div>
+
+
+                        <div id="aiResponse"
+                             class="ai-response">
+
+                            <span style="color:#687694;">
+                                Your AI explanation will appear here.
+                            </span>
+
+                        </div>
+
+
+                        <div class="ai-security-note">
+                            🔒 STUDENT ROLE VERIFIED · AI ACCESS PROTECTED
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Security -->
+
+                <div class="dashboard-panel">
+
+                    <div class="panel-title-row">
+
+                        <div class="panel-title">
+
+                            <div class="panel-title-icon">
+                                🔒
+                            </div>
+
+                            <div>
+
+                                <h2>
+                                    Security Status
+                                </h2>
+
+                                <p>
+                                    Current session protection
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="security-mini">
+
+                        <div class="security-mini-row">
+
+                            <div class="security-check">
+                                ✓
+                            </div>
+
+                            Authentication verified
+
+                        </div>
+
+
+                        <div class="security-mini-row">
+
+                            <div class="security-check">
+                                ✓
+                            </div>
+
+                            Student role authorized
+
+                        </div>
+
+
+                        <div class="security-mini-row">
+
+                            <div class="security-check">
+                                ✓
+                            </div>
+
+                            AI access restricted to student
+
+                        </div>
+
+
+                        <div class="security-mini-row">
+
+                            <div class="security-check">
+                                ✓
+                            </div>
+
+                            Protected session active
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    const API_URL = "http://localhost:5000";
+
+
+    /* =========================================
+       AUTH CHECK
+    ========================================= */
+
+    const authToken =
+        sessionStorage.getItem("authToken");
+
+    const role =
+        sessionStorage.getItem("role");
+
+    if (!authToken || role !== "student") {
+
+        window.location.href =
+            "student-login.html";
+
+    }
+
+
+    /* =========================================
+       STUDENT INFORMATION
+    ========================================= */
+
+    const storedName =
+        sessionStorage.getItem("studentName")
+        || "Student";
+
+    const institution =
+        sessionStorage.getItem("institution")
+        || "Institution";
+
+
+    document.getElementById("studentName")
+        .textContent = storedName;
+
+    document.getElementById("headerStudentName")
+        .textContent = storedName;
+
+    document.getElementById("institutionName")
+        .textContent = institution;
+
+
+    const avatar =
+        document.getElementById("studentAvatar");
+
+    avatar.textContent =
+        storedName.charAt(0).toUpperCase();
+
+
+    /* =========================================
+       COURSE ICON
+    ========================================= */
+
+    function getCourseIcon(title) {
+
+        const value =
+            title.toLowerCase();
+
+        if (value.includes("data"))
+            return "◇";
+
+        if (value.includes("database"))
+            return "◫";
+
+        if (value.includes("operating"))
+            return "▣";
+
+        if (value.includes("network"))
+            return "◉";
+
+        return "◈";
+    }
+
+
+    /* =========================================
+       LOAD COURSES
+    ========================================= */
+
+    async function loadCourses() {
+
+        const list =
+            document.getElementById("coursesList");
+
+        try {
+
+            const response =
+                await fetch(
+                    `${API_URL}/api/courses`,
+                    {
+                        headers: {
+                            Authorization:
+                                `Bearer ${authToken}`
+                        }
+                    }
+                );
+
+            if (!response.ok) {
+                throw new Error(
+                    "Unable to load courses"
+                );
+            }
+
+            const data =
+                await response.json();
+
+            const courses =
+                Array.isArray(data)
+                    ? data
+                    : data.courses || [];
+
+
+            document.getElementById("courseCount")
+                .textContent = courses.length;
+
+
+            if (!courses.length) {
+
+                list.innerHTML = `
+                    <div class="dashboard-loading">
+                        No courses available yet.
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            let totalProgress = 0;
+
+
+            list.innerHTML =
+                courses.map(course => {
+
+                    const progress =
+                        Number(course.progress || 0);
+
+                    totalProgress += progress;
+
+                    return `
+
+                        <div
+                            class="course-card"
+                            onclick="openCourse(${course.id})"
+                        >
+
+                            <div class="course-card-top">
+
+                                <div class="course-icon">
+                                    ${getCourseIcon(course.title)}
+                                </div>
+
+
+                                <div class="course-info">
+
+                                    <h3>
+                                        ${escapeHtml(course.title)}
+                                    </h3>
+
+                                    <p>
+                                        ${escapeHtml(
+                                            course.description
+                                            || "Continue learning and build your skills."
+                                        )}
+                                    </p>
+
+                                </div>
+
+
+                                <div class="course-progress">
+
+                                    <div class="course-progress-top">
+
+                                        <span>
+                                            Progress
+                                        </span>
+
+                                        <strong>
+                                            ${progress}%
+                                        </strong>
+
+                                    </div>
+
+                                    <div class="course-progress-bar">
+
+                                        <div
+                                            class="course-progress-fill"
+                                            style="width:${progress}%"
+                                        ></div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }).join("");
+
+
+            const overall =
+                Math.round(
+                    totalProgress / courses.length
+                );
+
+            document.getElementById(
+                "overallProgress"
+            ).textContent = overall;
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            list.innerHTML = `
+                <div class="dashboard-loading">
+
+                    Unable to connect to LearnSphere API.
+
+                    <br><br>
+
+                    <span style="color:#ff6262;">
+                        Make sure the backend is running on port 5000.
+                    </span>
+
+                </div>
+            `;
+
+        }
+
+    }
+
+
+    /* =========================================
+       OPEN COURSE
+    ========================================= */
+
+    function openCourse(courseId) {
+
+        window.location.href =
+            `course.html?courseId=${courseId}`;
+
+    }
+
+
+    /* =========================================
+       OPEN ASSESSMENT
+    ========================================= */
+
+    function openAssessment(type) {
+
+        window.location.href =
+            `assessment.html?type=${type}`;
+
+    }
+
+
+    /* =========================================
+       AI SUGGESTIONS
+    ========================================= */
+
+    function setQuestion(question) {
+
+        const input =
+            document.getElementById("aiQuestion");
+
+        input.value = question;
+
+        input.focus();
+
+    }
+
+
+    /* =========================================
+       AI COPILOT
+    ========================================= */
+
+    async function askCopilot() {
+
+        const input =
+            document.getElementById("aiQuestion");
+
+        const responseBox =
+            document.getElementById("aiResponse");
+
+        const question =
+            input.value.trim();
+
+
+        if (!question) {
+
+            responseBox.innerHTML = `
+                <span style="color:#ff8a8a;">
+                    Please enter a question first.
+                </span>
+            `;
+
+            return;
+        }
+
+
+        responseBox.innerHTML = `
+            <span style="color:#a78bfa;">
+                ✦ Thinking...
+            </span>
+        `;
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `${API_URL}/api/ai/copilot`,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json",
+
+                            "Authorization":
+                                `Bearer ${authToken}`
+                        },
+
+                        body: JSON.stringify({
+                            question
+                        })
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.error ||
+                    "AI request failed"
+                );
+
+            }
+
+
+            const answer =
+                data.answer ||
+                "No answer received.";
+
+
+            responseBox.innerHTML = `
+
+                <div style="
+                    color:#a78bfa;
+                    font-size:8px;
+                    font-weight:800;
+                    letter-spacing:1px;
+                    margin-bottom:7px;
+                ">
+                    AI EXPLANATION
+                </div>
+
+                <div style="
+                    color:#aeb9cc;
+                    line-height:1.7;
+                ">
+                    ${escapeHtml(answer)
+                        .replace(/\n/g, "<br>")}
+                </div>
+
+            `;
+
+            input.value = "";
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            responseBox.innerHTML = `
+
+                <div style="color:#ff8a8a;">
+                    AI service is currently unavailable.
+                </div>
+
+                <div style="
+                    margin-top:5px;
+                    color:#687694;
+                    font-size:8px;
+                ">
+                    Your student session is still active.
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+    /* =========================================
+       LOGOUT
+    ========================================= */
+
+    function logout() {
+
+        sessionStorage.removeItem("authToken");
+        sessionStorage.removeItem("studentName");
+        sessionStorage.removeItem("institution");
+        sessionStorage.removeItem("role");
+
+        window.location.href =
+            "student-login.html";
+
+    }
+
+
+    /* =========================================
+       HTML SAFETY
+    ========================================= */
+
+    function escapeHtml(value) {
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =========================================
+       START
+    ========================================= */
+
+    loadCourses();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnSphere | Assessment</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="brand">
+        <span class="brand-mark">LS</span>
+
+        <div>
+            <strong>LearnSphere</strong>
+            <small>Secure Learning OS</small>
+        </div>
+    </div>
+
+    <div class="topbar-actions">
+
+        <span class="secure-session">
+            ● SECURE SESSION
+        </span>
+
+        <button
+            class="secondary-button"
+            onclick="goDashboard()">
+            Dashboard
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="page-shell">
+
+    <!-- ASSESSMENT HEADER -->
+
+    <section class="course-hero">
+
+        <div class="eyebrow">
+            ASSESSMENT
+        </div>
+
+        <h1 id="assessmentTitle">
+            Loading assessment...
+        </h1>
+
+        <p id="assessmentDescription">
+            Test your understanding of the course concepts.
+        </p>
+
+        <div class="course-meta">
+
+            <span id="questionCount">
+                0 Questions
+            </span>
+
+            <span>
+                Student Assessment
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- QUIZ -->
+
+    <section class="dashboard-card">
+
+        <div id="quizContainer"></div>
+
+        <div
+            id="quizActions"
+            class="assessment-actions">
+
+            <button
+                class="secondary-button"
+                onclick="goDashboard()">
+                Cancel
+            </button>
+
+            <button
+                class="primary-button"
+                onclick="submitAssessment()">
+                Submit Assessment
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+/* =========================================================
+   AUTHENTICATION
+========================================================= */
+
+const token =
+    sessionStorage.getItem("authToken");
+
+if (!token) {
+
+    window.location.href =
+        "student-login.html";
+
+}
+
+
+/* =========================================================
+   GET ASSESSMENT TYPE
+========================================================= */
+
+const params =
+    new URLSearchParams(window.location.search);
+
+const assessmentType =
+    params.get("type") || "binary";
+
+
+/* =========================================================
+   ASSESSMENTS
+========================================================= */
+
+const assessments = {
+
+    binary: {
+
+        title: "Binary Trees Assignment",
+
+        description:
+            "Test your understanding of binary trees and binary search trees.",
+
+        course:
+            "Data Structures & Algorithms",
+
+        questions: [
+
+            {
+                question:
+                    "What is a binary tree?",
+
+                options: [
+                    "A tree where every node has at most two children",
+                    "A tree where every node has exactly two children",
+                    "A tree containing only two nodes",
+                    "A linear data structure"
+                ],
+
+                answer: 0
+            },
+
+            {
+                question:
+                    "Which traversal visits the root between the left and right subtrees?",
+
+                options: [
+                    "Preorder",
+                    "Inorder",
+                    "Postorder",
+                    "Level order"
+                ],
+
+                answer: 1
+            },
+
+            {
+                question:
+                    "In a Binary Search Tree, values smaller than a node are generally placed where?",
+
+                options: [
+                    "Right subtree",
+                    "Root",
+                    "Left subtree",
+                    "Outside the tree"
+                ],
+
+                answer: 2
+            },
+
+            {
+                question:
+                    "What is the average search time in a balanced Binary Search Tree?",
+
+                options: [
+                    "O(1)",
+                    "O(log n)",
+                    "O(n²)",
+                    "O(n!)"
+                ],
+
+                answer: 1
+            },
+
+            {
+                question:
+                    "Which traversal can produce sorted values from a Binary Search Tree?",
+
+                options: [
+                    "Preorder",
+                    "Postorder",
+                    "Inorder",
+                    "Random traversal"
+                ],
+
+                answer: 2
+            }
+
+        ]
+
+    },
+
+
+    sql: {
+
+        title: "SQL Assessment",
+
+        description:
+            "Test your knowledge of SQL, tables, queries and database operations.",
+
+        course:
+            "Database Management Systems",
+
+        questions: [
+
+            {
+                question:
+                    "Which SQL command is used to retrieve data?",
+
+                options: [
+                    "GET",
+                    "SELECT",
+                    "FETCHDATA",
+                    "READ"
+                ],
+
+                answer: 1
+            },
+
+            {
+                question:
+                    "Which clause is used to filter rows?",
+
+                options: [
+                    "ORDER BY",
+                    "GROUP BY",
+                    "WHERE",
+                    "FILTER"
+                ],
+
+                answer: 2
+            },
+
+            {
+                question:
+                    "Which command is used to add a new row?",
+
+                options: [
+                    "INSERT",
+                    "ADD",
+                    "CREATE",
+                    "APPEND"
+                ],
+
+                answer: 0
+            },
+
+            {
+                question:
+                    "Which SQL command modifies existing records?",
+
+                options: [
+                    "CHANGE",
+                    "UPDATE",
+                    "MODIFY",
+                    "ALTER"
+                ],
+
+                answer: 1
+            },
+
+            {
+                question:
+                    "Which constraint uniquely identifies a row?",
+
+                options: [
+                    "FOREIGN KEY",
+                    "CHECK",
+                    "PRIMARY KEY",
+                    "DEFAULT"
+                ],
+
+                answer: 2
+            }
+
+        ]
+
+    },
+
+
+    network: {
+
+        title: "Network Security Quiz",
+
+        description:
+            "Test your knowledge of computer networks and network security.",
+
+        course:
+            "Computer Networks",
+
+        questions: [
+
+            {
+                question:
+                    "Which protocol is commonly used for secure web communication?",
+
+                options: [
+                    "HTTP",
+                    "FTP",
+                    "HTTPS",
+                    "SMTP"
+                ],
+
+                answer: 2
+            },
+
+            {
+                question:
+                    "What does IP stand for?",
+
+                options: [
+                    "Internet Protocol",
+                    "Internal Process",
+                    "Internet Program",
+                    "Information Protocol"
+                ],
+
+                answer: 0
+            },
+
+            {
+                question:
+                    "Which device forwards packets between networks?",
+
+                options: [
+                    "Switch",
+                    "Router",
+                    "Hub",
+                    "Repeater"
+                ],
+
+                answer: 1
+            },
+
+            {
+                question:
+                    "Which technology is commonly used to encrypt web traffic?",
+
+                options: [
+                    "TLS",
+                    "HTML",
+                    "DNS",
+                    "DHCP"
+                ],
+
+                answer: 0
+            },
+
+            {
+                question:
+                    "What is the main purpose of a firewall?",
+
+                options: [
+                    "Increase CPU speed",
+                    "Store files",
+                    "Control network traffic",
+                    "Create databases"
+                ],
+
+                answer: 2
+            }
+
+        ]
+
+    }
+
+};
+
+
+/* =========================================================
+   CURRENT ASSESSMENT
+========================================================= */
+
+const assessment =
+    assessments[assessmentType] ||
+    assessments.binary;
+
+
+document.getElementById(
+    "assessmentTitle"
+).textContent =
+    assessment.title;
+
+
+document.getElementById(
+    "assessmentDescription"
+).textContent =
+    assessment.description;
+
+
+document.getElementById(
+    "questionCount"
+).textContent =
+    `${assessment.questions.length} Questions`;
+
+
+/* =========================================================
+   RENDER QUESTIONS
+========================================================= */
+
+function renderQuiz() {
+
+    const container =
+        document.getElementById("quizContainer");
+
+    container.innerHTML = "";
+
+
+    assessment.questions.forEach(
+        (question, questionIndex) => {
+
+            const questionCard =
+                document.createElement("div");
+
+            questionCard.className =
+                "quiz-question";
+
+
+            let optionsHTML = "";
+
+
+            question.options.forEach(
+                (option, optionIndex) => {
+
+                    optionsHTML += `
+
+                        <label class="quiz-option">
+
+                            <input
+                                type="radio"
+                                name="question-${questionIndex}"
+                                value="${optionIndex}"
+                            >
+
+                            <span>
+                                ${option}
+                            </span>
+
+                        </label>
+
+                    `;
+
+                }
+            );
+
+
+            questionCard.innerHTML = `
+
+                <div class="quiz-question-number">
+                    QUESTION ${questionIndex + 1}
+                </div>
+
+                <h2>
+                    ${question.question}
+                </h2>
+
+                <div class="quiz-options">
+                    ${optionsHTML}
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                questionCard
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SUBMIT ASSESSMENT
+========================================================= */
+
+function submitAssessment() {
+
+    let correct = 0;
+
+    let answered = 0;
+
+    const answers = [];
+
+
+    assessment.questions.forEach(
+        (question, questionIndex) => {
+
+            const selected =
+                document.querySelector(
+                    `input[name="question-${questionIndex}"]:checked`
+                );
+
+
+            let selectedIndex = null;
+
+
+            if (selected) {
+
+                selectedIndex =
+                    Number(selected.value);
+
+                answered++;
+
+            }
+
+
+            const isCorrect =
+                selectedIndex === question.answer;
+
+
+            if (isCorrect) {
+                correct++;
+            }
+
+
+            answers.push({
+
+                question:
+                    question.question,
+
+                selected:
+                    selectedIndex !== null
+                        ? question.options[selectedIndex]
+                        : "Not answered",
+
+                correctAnswer:
+                    question.options[question.answer],
+
+                correct:
+                    isCorrect
+
+            });
+
+        }
+    );
+
+
+    const total =
+        assessment.questions.length;
+
+
+    const incorrect =
+        total - correct;
+
+
+    const percentage =
+        Math.round(
+            (correct / total) * 100
+        );
+
+
+    /* =====================================================
+       SAVE RESULT
+    ===================================================== */
+
+    const result = {
+
+        title:
+            assessment.title,
+
+        course:
+            assessment.course,
+
+        correct:
+            correct,
+
+        incorrect:
+            incorrect,
+
+        total:
+            total,
+
+        answered:
+            answered,
+
+        percentage:
+            percentage,
+
+        answers:
+            answers,
+
+        completedAt:
+            new Date().toISOString()
+
+    };
+
+
+    sessionStorage.setItem(
+        "lastAssessmentResult",
+        JSON.stringify(result)
+    );
+
+
+    /* =====================================================
+       SAVE ASSESSMENT HISTORY
+    ===================================================== */
+
+    let history = [];
+
+    try {
+
+        history =
+            JSON.parse(
+                sessionStorage.getItem(
+                    "assessmentHistory"
+                )
+            ) || [];
+
+    } catch {
+
+        history = [];
+
+    }
+
+
+    history.push(result);
+
+
+    sessionStorage.setItem(
+        "assessmentHistory",
+        JSON.stringify(history)
+    );
+
+
+    /* =====================================================
+       GO TO RESULTS
+    ===================================================== */
+
+    window.location.href =
+        "results.html";
+
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function goDashboard() {
+
+    window.location.href =
+        "student-dashboard.html";
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+renderQuiz();
+
+</script>
+
+</body>
+</html>

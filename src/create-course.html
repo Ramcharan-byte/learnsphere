@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Instructor Dashboard | LearnSphere</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #07111f;
+            --bg2: #0b1728;
+            --card: #101f33;
+            --card2: #13253d;
+            --border: rgba(255,255,255,0.09);
+            --text: #f5f7fb;
+            --muted: #91a2b8;
+            --green: #55e6a5;
+            --green-dark: #24b879;
+            --blue: #5ca8ff;
+            --purple: #9b7cff;
+            --red: #ff6b7a;
+            --shadow: 0 20px 50px rgba(0,0,0,0.25);
+        }
+
+        body {
+            font-family: Inter, Segoe UI, Arial, sans-serif;
+            background:
+                radial-gradient(circle at 10% 0%, rgba(92,168,255,0.10), transparent 30%),
+                radial-gradient(circle at 90% 10%, rgba(155,124,255,0.10), transparent 30%),
+                var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        /* HEADER */
+
+        .header {
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 42px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(7,17,31,0.88);
+            backdrop-filter: blur(16px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -0.4px;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--green), var(--blue));
+            color: #06101b;
+            font-weight: 900;
+        }
+
+        .brand span {
+            color: var(--green);
+        }
+
+        .nav {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .nav a {
+            padding: 9px 14px;
+            border-radius: 9px;
+            color: var(--muted);
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .nav a:hover,
+        .nav a.active {
+            color: var(--text);
+            background: rgba(255,255,255,0.06);
+        }
+
+        .profile-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8c7cff, #55e6a5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #07111f;
+            font-weight: 800;
+        }
+
+        .profile-info strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .profile-info small {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .logout-btn {
+            border: 1px solid rgba(255,255,255,0.1);
+            background: transparent;
+            color: var(--muted);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .logout-btn:hover {
+            color: white;
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        /* MAIN */
+
+        .container {
+            width: min(1180px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: 38px 0 70px;
+        }
+
+        /* WELCOME */
+
+        .welcome {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .welcome h1 {
+            font-size: clamp(28px, 4vw, 42px);
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+
+        .welcome h1 span {
+            color: var(--green);
+        }
+
+        .welcome p {
+            color: var(--muted);
+            max-width: 650px;
+            line-height: 1.6;
+        }
+
+        .security-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border: 1px solid rgba(85,230,165,0.2);
+            background: rgba(85,230,165,0.06);
+            color: var(--green);
+            border-radius: 10px;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 12px rgba(85,230,165,0.8);
+        }
+
+        /* STATS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(
+                145deg,
+                rgba(19,37,61,0.92),
+                rgba(16,31,51,0.92)
+            );
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .stat-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stat-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(92,168,255,0.1);
+            color: var(--blue);
+            font-size: 18px;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .stat-number {
+            font-size: 30px;
+            font-weight: 800;
+        }
+
+        /* LAYOUT */
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.8fr) minmax(300px, 1fr);
+            gap: 22px;
+        }
+
+        .panel {
+            background: rgba(16,31,51,0.86);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 22px;
+            box-shadow: var(--shadow);
+            margin-bottom: 22px;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .panel-header h2 {
+            font-size: 18px;
+        }
+
+        .panel-header p {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        /* CREATE COURSE BUTTON */
+
+        .primary-btn {
+            border: none;
+            background: linear-gradient(135deg, var(--green), var(--green-dark));
+            color: #06101b;
+            font-weight: 800;
+            padding: 11px 17px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(85,230,165,0.2);
+        }
+
+        /* COURSES */
+
+        #coursesList {
+            display: grid;
+            gap: 12px;
+        }
+
+        .course-card {
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.025);
+            border-radius: 13px;
+            padding: 17px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            transition: 0.2s;
+        }
+
+        .course-card:hover {
+            border-color: rgba(85,230,165,0.25);
+            transform: translateY(-1px);
+        }
+
+        .course-info h3 {
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .course-info p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .course-meta {
+            margin-top: 9px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            color: var(--green);
+            background: rgba(85,230,165,0.08);
+            border: 1px solid rgba(85,230,165,0.15);
+        }
+
+        .secondary-btn {
+            background: transparent;
+            color: var(--blue);
+            border: 1px solid rgba(92,168,255,0.25);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .secondary-btn:hover {
+            background: rgba(92,168,255,0.08);
+        }
+
+        /* EMPTY / ERROR */
+
+        .message {
+            border: 1px dashed var(--border);
+            padding: 25px;
+            text-align: center;
+            border-radius: 12px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .error-message {
+            color: #ff9ca7;
+            border-color: rgba(255,107,122,0.2);
+            background: rgba(255,107,122,0.04);
+        }
+
+        /* QUICK ACTIONS */
+
+        .actions {
+            display: grid;
+            gap: 11px;
+        }
+
+        .action-btn {
+            width: 100%;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.025);
+            color: var(--text);
+            border-radius: 11px;
+            padding: 14px;
+            text-align: left;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .action-btn:hover {
+            background: rgba(255,255,255,0.055);
+            border-color: rgba(85,230,165,0.25);
+            transform: translateX(2px);
+        }
+
+        .action-btn strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .action-btn span {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* SECURITY */
+
+        .security-list {
+            display: grid;
+            gap: 13px;
+        }
+
+        .security-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding-bottom: 13px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .security-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .security-name {
+            font-size: 13px;
+        }
+
+        .security-name small {
+            display: block;
+            color: var(--muted);
+            margin-top: 3px;
+            font-size: 11px;
+        }
+
+        .status {
+            font-size: 11px;
+            color: var(--green);
+            padding: 5px 8px;
+            border-radius: 6px;
+            background: rgba(85,230,165,0.08);
+            white-space: nowrap;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            color: var(--muted);
+            font-size: 12px;
+            padding: 20px 0 0;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+
+            .header {
+                padding: 0 20px;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .container {
+                width: min(100% - 24px, 1180px);
+                padding-top: 25px;
+            }
+
+            .header {
+                padding: 0 14px;
+            }
+
+            .profile-info {
+                display: none;
+            }
+
+            .welcome {
+                flex-direction: column;
+            }
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .stat-card {
+                padding: 15px;
+            }
+
+            .stat-number {
+                font-size: 24px;
+            }
+
+            .course-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .course-card .secondary-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <a href="index.html" class="brand">
+        <div class="brand-icon">L</div>
+        Learn<span>Sphere</span>
+    </a>
+
+    <nav class="nav">
+        <a href="instructor-dashboard.html" class="active">
+            Dashboard
+        </a>
+
+        <a href="#courses">
+            My Courses
+        </a>
+
+        <a href="#actions">
+            Assessments
+        </a>
+
+        <a href="#students">
+            Students
+        </a>
+    </nav>
+
+    <div class="profile-area">
+
+        <div class="profile">
+
+            <div class="avatar" id="avatar">
+                I
+            </div>
+
+            <div class="profile-info">
+                <strong id="instructorName">
+                    Instructor
+                </strong>
+
+                <small>
+                    Instructor
+                </small>
+            </div>
+
+        </div>
+
+        <button
+            class="logout-btn"
+            onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+    <!-- WELCOME -->
+
+    <section class="welcome">
+
+        <div>
+            <h1>
+                Welcome back,
+                <span id="welcomeName">
+                    Instructor
+                </span>
+            </h1>
+
+            <p>
+                Manage your courses, lessons, assessments and
+                student learning activities from your instructor workspace.
+            </p>
+        </div>
+
+        <div class="security-badge">
+            <span class="dot"></span>
+            Secure Instructor Session
+        </div>
+
+    </section>
+
+
+    <!-- STATS -->
+
+    <section class="stats">
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+                <span class="stat-label">
+                    My Courses
+                </span>
+
+                <div class="stat-icon">
+                    📚
+                </div>
+            </div>
+
+            <div
+                class="stat-number"
+                id="courseCount">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+                <span class="stat-label">
+                    Lessons
+                </span>
+
+                <div class="stat-icon">
+                    📖
+                </div>
+            </div>
+
+            <div class="stat-number">
+                32
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+                <span class="stat-label">
+                    Assessments
+                </span>
+
+                <div class="stat-icon">
+                    📝
+                </div>
+            </div>
+
+            <div class="stat-number">
+                12
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+                <span class="stat-label">
+                    Students
+                </span>
+
+                <div class="stat-icon">
+                    👨‍🎓
+                </div>
+            </div>
+
+            <div class="stat-number">
+                128
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- MAIN GRID -->
+
+    <div class="main-grid">
+
+        <!-- LEFT -->
+
+        <div>
+
+            <section
+                class="panel"
+                id="courses">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h2>
+                            My Courses
+                        </h2>
+
+                        <p>
+                            Courses created and managed by you
+                        </p>
+                    </div>
+
+                    <!-- DIRECT ROUTING -->
+                    <button
+                        class="primary-btn"
+                        type="button"
+                        onclick="window.location.href='create-course.html'">
+                        + Create Course
+                    </button>
+
+                </div>
+
+
+                <div id="coursesList">
+
+                    <div class="message">
+                        Loading your courses...
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <section
+                class="panel"
+                id="students">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h2>
+                            Student Performance
+                        </h2>
+
+                        <p>
+                            Monitor learning progress and assessments
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="message">
+
+                    Student performance analytics will appear here
+                    as learners complete your assessments.
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <div>
+
+            <section
+                class="panel"
+                id="actions">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h2>
+                            Quick Actions
+                        </h2>
+
+                        <p>
+                            Manage your teaching workspace
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="actions">
+
+                    <!-- IMPORTANT:
+                         Directly opens create-course.html.
+                         No JavaScript placeholder function. -->
+
+                    <button
+                        class="action-btn"
+                        type="button"
+                        onclick="window.location.href='create-course.html'">
+
+                        <strong>
+                            ➕ Create Course
+                        </strong>
+
+                        <span>
+                            Create a new course for students
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="action-btn"
+                        type="button"
+                        onclick="showComingSoon('Lesson management')">
+
+                        <strong>
+                            📖 Manage Lessons
+                        </strong>
+
+                        <span>
+                            Add and organize course lessons
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="action-btn"
+                        type="button"
+                        onclick="showComingSoon('Assessment creation')">
+
+                        <strong>
+                            📝 Create Assessment
+                        </strong>
+
+                        <span>
+                            Build quizzes and learning assessments
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="action-btn"
+                        type="button"
+                        onclick="showComingSoon('Student performance')">
+
+                        <strong>
+                            📊 Student Performance
+                        </strong>
+
+                        <span>
+                            Review learner progress and results
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- SECURITY PANEL -->
+
+            <section class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h2>
+                            Security Status
+                        </h2>
+
+                        <p>
+                            LearnSphere access controls
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="security-list">
+
+                    <div class="security-row">
+
+                        <div class="security-name">
+
+                            Authentication
+
+                            <small>
+                                JWT protected session
+                            </small>
+
+                        </div>
+
+                        <span class="status">
+                            Active
+                        </span>
+
+                    </div>
+
+
+                    <div class="security-row">
+
+                        <div class="security-name">
+
+                            Instructor Role
+
+                            <small>
+                                RBAC authorization
+                            </small>
+
+                        </div>
+
+                        <span class="status">
+                            Verified
+                        </span>
+
+                    </div>
+
+
+                    <div class="security-row">
+
+                        <div class="security-name">
+
+                            AI Copilot
+
+                            <small>
+                                Student-only access
+                            </small>
+
+                        </div>
+
+                        <span class="status">
+                            Restricted
+                        </span>
+
+                    </div>
+
+
+                    <div class="security-row">
+
+                        <div class="security-name">
+
+                            API
+
+                            <small>
+                                Backend protected
+                            </small>
+
+                        </div>
+
+                        <span class="status">
+                            Connected
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </div>
+
+
+    <footer>
+        LearnSphere · Secure Learning & Assessment Platform
+    </footer>
+
+</main>
+
+
+<script>
+
+    /*
+     * ==========================================
+     * AUTHENTICATION
+     * ==========================================
+     */
+
+    const token = sessionStorage.getItem("authToken");
+    const role = sessionStorage.getItem("role");
+
+    /*
+     * Instructor dashboard must only be accessible
+     * to authenticated instructors.
+     */
+
+    if (!token || role !== "instructor") {
+
+        window.location.href = "instructor-login.html";
+
+    }
+
+
+    /*
+     * ==========================================
+     * LOAD INSTRUCTOR INFORMATION
+     * ==========================================
+     */
+
+    const storedName =
+        sessionStorage.getItem("instructorName")
+        || "Instructor";
+
+    document.getElementById("instructorName").textContent =
+        storedName;
+
+    document.getElementById("welcomeName").textContent =
+        storedName;
+
+
+    /*
+     * Create avatar initials
+     */
+
+    const avatar =
+        document.getElementById("avatar");
+
+    const initials =
+        storedName
+            .split(" ")
+            .filter(Boolean)
+            .map(word => word[0])
+            .join("")
+            .substring(0, 2)
+            .toUpperCase();
+
+    avatar.textContent =
+        initials || "I";
+
+
+    /*
+     * ==========================================
+     * LOAD COURSES
+     * ==========================================
+     */
+
+    async function loadCourses() {
+
+        const coursesList =
+            document.getElementById("coursesList");
+
+        try {
+
+            const response =
+                await fetch(
+                    "http://localhost:5000/api/instructor/courses",
+                    {
+                        method: "GET",
+
+                        headers: {
+                            "Authorization":
+                                "Bearer " + token
+                        }
+                    }
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Unable to load instructor courses."
+                );
+
+            }
+
+
+            const data =
+                await response.json();
+
+
+            /*
+             * Backend normally returns:
+             *
+             * {
+             *   success: true,
+             *   courses: [...]
+             * }
+             */
+
+            const courses =
+                Array.isArray(data)
+                    ? data
+                    : (data.courses || []);
+
+
+            document.getElementById("courseCount")
+                .textContent = courses.length;
+
+
+            if (courses.length === 0) {
+
+                coursesList.innerHTML = `
+
+                    <div class="message">
+
+                        <strong>
+                            No courses created yet.
+                        </strong>
+
+                        <br><br>
+
+                        Create your first course using
+                        the <b>+ Create Course</b> button.
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+            coursesList.innerHTML =
+                courses.map(course => {
+
+                    const title =
+                        escapeHTML(
+                            course.title || "Untitled Course"
+                        );
+
+                    const description =
+                        escapeHTML(
+                            course.description
+                            || "No course description available."
+                        );
+
+                    const category =
+                        escapeHTML(
+                            course.category
+                            || "Course"
+                        );
+
+                    const level =
+                        escapeHTML(
+                            course.level
+                            || "All Levels"
+                        );
+
+
+                    return `
+
+                        <div class="course-card">
+
+                            <div class="course-info">
+
+                                <h3>
+                                    ${title}
+                                </h3>
+
+                                <p>
+                                    ${description}
+                                </p>
+
+                                <div class="course-meta">
+
+                                    <span class="tag">
+                                        ${category}
+                                    </span>
+
+                                    <span class="tag">
+                                        ${level}
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <button
+                                class="secondary-btn"
+                                type="button"
+                                onclick="viewCourse('${course.id}')">
+
+                                View Course
+
+                            </button>
+
+                        </div>
+
+                    `;
+
+                }).join("");
+
+
+        } catch (error) {
+
+            console.error(
+                "Course loading error:",
+                error
+            );
+
+
+            coursesList.innerHTML = `
+
+                <div class="message error-message">
+
+                    <strong>
+                        Unable to load courses.
+                    </strong>
+
+                    <br><br>
+
+                    Make sure the LearnSphere backend
+                    is running at
+                    <b>http://localhost:5000</b>.
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+    /*
+     * ==========================================
+     * VIEW COURSE
+     * ==========================================
+     */
+
+    function viewCourse(courseId) {
+
+        if (!courseId) {
+
+            return;
+
+        }
+
+        window.location.href =
+            "course.html?courseId="
+            + encodeURIComponent(courseId);
+
+    }
+
+
+    /*
+     * ==========================================
+     * COMING SOON
+     * ==========================================
+     */
+
+    function showComingSoon(feature) {
+
+        alert(
+            feature +
+            " module is available in the instructor workspace roadmap."
+        );
+
+    }
+
+
+    /*
+     * ==========================================
+     * LOGOUT
+     * ==========================================
+     */
+
+    function logout() {
+
+        sessionStorage.removeItem("authToken");
+        sessionStorage.removeItem("instructorName");
+        sessionStorage.removeItem("institution");
+        sessionStorage.removeItem("role");
+
+        window.location.href =
+            "instructor-login.html";
+
+    }
+
+
+    /*
+     * ==========================================
+     * SECURITY:
+     * ESCAPE HTML BEFORE INSERTING BACKEND DATA
+     * ==========================================
+     */
+
+    function escapeHTML(value) {
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    /*
+     * ==========================================
+     * START
+     * ==========================================
+     */
+
+    loadCourses();
+
+</script>
+
+</body>
+</html>

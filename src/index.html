@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnSphere | Secure Learning OS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="topbar">
+    <a class="brand" href="#">
+        <span class="brand-mark">L</span>
+        <span>Learn<span class="accent">Sphere</span></span>
+    </a>
+
+    <nav>
+        <a href="#platform">Platform</a>
+        <a href="#security">Security</a>
+        <a href="#roles">Access</a>
+    </nav>
+
+    <div class="top-actions">
+        <span class="live-dot">● System Online</span>
+        <button onclick="showRoles()">Enter Platform</button>
+    </div>
+</header>
+
+
+<main>
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-left">
+
+            <div class="eyebrow">
+                <span>✦</span>
+                SECURE LEARNING ENVIRONMENT
+            </div>
+
+            <h1>
+                Your knowledge.<br>
+                <span>Your progress.</span><br>
+                Your future.
+            </h1>
+
+            <p class="hero-description">
+                LearnSphere is a secure learning and assessment platform
+                that combines intelligent learning assistance with
+                controlled role-based access.
+            </p>
+
+            <div class="hero-actions">
+                <button class="primary-btn" onclick="showRoles()">
+                    Start Learning
+                    <span>→</span>
+                </button>
+
+                <button class="outline-btn" onclick="document.getElementById('security').scrollIntoView({behavior:'smooth'})">
+                    Explore Security
+                </button>
+            </div>
+
+            <div class="trust-row">
+                <span>🔒 Protected Access</span>
+                <span>◆ Role Based</span>
+                <span>✦ Student AI</span>
+            </div>
+
+        </div>
+
+
+        <!-- SECURITY CARD -->
+
+        <div class="hero-right">
+
+            <div class="orbit-card">
+
+                <div class="card-top">
+                    <span>SECURE SESSION</span>
+                    <span class="verified">● VERIFIED</span>
+                </div>
+
+                <div class="identity">
+                    <div class="avatar">S</div>
+
+                    <div>
+                        <small>IDENTITY</small>
+                        <h3>Student Access</h3>
+                    </div>
+                </div>
+
+                <div class="security-lines">
+
+                    <div class="security-line">
+                        <span>Authentication</span>
+                        <strong>Verified</strong>
+                    </div>
+
+                    <div class="security-line">
+                        <span>Role</span>
+                        <strong>STUDENT</strong>
+                    </div>
+
+                    <div class="security-line">
+                        <span>AI Access</span>
+                        <strong class="allowed">ALLOWED</strong>
+                    </div>
+
+                </div>
+
+                <div class="progress-box">
+                    <div class="progress-heading">
+                        <span>Learning Progress</span>
+                        <strong>82%</strong>
+                    </div>
+
+                    <div class="progress-track">
+                        <div class="progress-fill"></div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <span>SESSION PROTECTED</span>
+                    <span>LS-SECURE</span>
+                </div>
+
+            </div>
+
+            <div class="floating-tag tag-one">
+                🔐 Encrypted
+            </div>
+
+            <div class="floating-tag tag-two">
+                🤖 AI Ready
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PLATFORM -->
+
+    <section id="platform" class="platform-section">
+
+        <div class="section-label">THE PLATFORM</div>
+
+        <h2>
+            Everything needed to<br>
+            <span>learn better.</span>
+        </h2>
+
+        <p class="section-description">
+            One secure environment for learning, assessment,
+            progress tracking and intelligent student assistance.
+        </p>
+
+
+        <div class="feature-grid">
+
+            <article class="feature-card large-card">
+
+                <div class="feature-number">01</div>
+
+                <div class="feature-icon">◈</div>
+
+                <h3>Structured Learning</h3>
+
+                <p>
+                    Access organized courses, lessons and
+                    learning materials through one platform.
+                </p>
+
+                <div class="feature-link">EXPLORE COURSES →</div>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-number">02</div>
+
+                <div class="feature-icon">⌁</div>
+
+                <h3>Smart Assessment</h3>
+
+                <p>
+                    Take quizzes and assessments and
+                    understand your performance.
+                </p>
+
+            </article>
+
+
+            <article class="feature-card ai-card">
+
+                <div class="feature-number">03</div>
+
+                <div class="feature-icon">✦</div>
+
+                <h3>Student AI Copilot</h3>
+
+                <p>
+                    Focused AI assistance for concepts,
+                    practice and learning questions.
+                </p>
+
+                <div class="ai-status">
+                    <span></span> STUDENT ACCESS ONLY
+                </div>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-number">04</div>
+
+                <div class="feature-icon">◎</div>
+
+                <h3>Progress Intelligence</h3>
+
+                <p>
+                    Track courses, assessments and
+                    overall learning progress.
+                </p>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- SECURITY -->
+
+    <section id="security" class="security-section">
+
+        <div class="security-copy">
+
+            <div class="section-label">SECURITY FIRST</div>
+
+            <h2>
+                Access is earned.<br>
+                <span>Not assumed.</span>
+            </h2>
+
+            <p>
+                LearnSphere separates students, instructors and
+                administrators through role-based access.
+                Every role receives only the functionality it needs.
+            </p>
+
+            <div class="security-list">
+
+                <div>
+                    <b>01</b>
+                    <span>Role-based authorization</span>
+                </div>
+
+                <div>
+                    <b>02</b>
+                    <span>Protected authentication</span>
+                </div>
+
+                <div>
+                    <b>03</b>
+                    <span>Student-only AI access</span>
+                </div>
+
+                <div>
+                    <b>04</b>
+                    <span>Protected learning data</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="security-panel">
+
+            <div class="panel-header">
+                <span>ACCESS CONTROL</span>
+                <span class="panel-status">ACTIVE</span>
+            </div>
+
+            <div class="access-row">
+                <span>🎓 Student</span>
+                <strong class="green">AI + Learning</strong>
+            </div>
+
+            <div class="access-row">
+                <span>👨‍🏫 Instructor</span>
+                <strong>Teaching Tools</strong>
+            </div>
+
+            <div class="access-row">
+                <span>🛡 Admin</span>
+                <strong>Restricted Control</strong>
+            </div>
+
+            <div class="access-rule">
+                <span>AI REQUEST</span>
+                <strong>→ ROLE CHECK → STUDENT</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ROLE ACCESS -->
+
+    <section id="roles" class="roles-section">
+
+        <div class="section-label">SECURE ENTRY</div>
+
+        <h2>Choose your access.</h2>
+
+        <p>
+            Every role has a different purpose.
+            Choose the one assigned to you.
+        </p>
+
+
+        <div class="role-grid">
+
+            <div class="role-card student-role">
+
+                <div class="role-symbol">🎓</div>
+
+                <span class="role-type">ROLE 01</span>
+
+                <h3>Student</h3>
+
+                <p>
+                    Learn courses, complete assessments,
+                    track progress and use the AI Copilot.
+                </p>
+
+                <button onclick="studentLogin()">
+                    Continue as Student →
+                </button>
+
+            </div>
+
+
+            <div class="role-card instructor-role">
+
+                <div class="role-symbol">👨‍🏫</div>
+
+                <span class="role-type">ROLE 02</span>
+
+                <h3>Instructor</h3>
+
+                <p>
+                    Create courses, manage lessons,
+                    assessments and student performance.
+                </p>
+
+                <button onclick="instructorLogin()">
+                    Continue as Instructor →
+                </button>
+
+            </div>
+
+
+            <div class="role-card admin-role">
+
+                <div class="role-symbol">🛡️</div>
+
+                <span class="role-type">ROLE 03</span>
+
+                <h3>Administrator</h3>
+
+                <p>
+                    Restricted platform management
+                    through secured administrator access.
+                </p>
+
+                <button onclick="adminLogin()">
+                    Administrator Access →
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <div>
+        <strong>Learn<span>Sphere</span></strong>
+        <p>Secure Learning & Assessment Platform</p>
+    </div>
+
+    <div>
+        <span>BUILT FOR BUILD SECURE 24</span>
+        <small>© 2026 LearnSphere</small>
+    </div>
+
+</footer>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>

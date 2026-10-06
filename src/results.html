@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnSphere | Results</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <span class="brand-mark">L</span>
+        <span>LearnSphere</span>
+    </div>
+
+    <div class="topbar-actions">
+        <button class="secondary-button" onclick="goDashboard()">Dashboard</button>
+        <button class="secondary-button" onclick="logout()">Logout</button>
+    </div>
+</header>
+
+<main class="page-shell">
+
+    <section class="course-hero">
+        <div class="eyebrow">ASSESSMENT RESULTS</div>
+        <h1 id="resultTitle">Assessment Results</h1>
+        <p id="resultMessage">Your performance summary</p>
+    </section>
+
+    <section class="dashboard-grid">
+
+        <div class="dashboard-card result-score-card">
+
+            <div class="eyebrow">YOUR SCORE</div>
+
+            <div class="result-score" id="score">
+                0%
+            </div>
+
+            <div class="result-label" id="scoreLabel">
+                Calculating...
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+            <div class="eyebrow">PERFORMANCE</div>
+
+            <div class="result-stat">
+                <span>Correct Answers</span>
+                <strong id="correct">0</strong>
+            </div>
+
+            <div class="result-stat">
+                <span>Incorrect Answers</span>
+                <strong id="incorrect">0</strong>
+            </div>
+
+            <div class="result-stat">
+                <span>Total Questions</span>
+                <strong id="total">0</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="dashboard-card">
+
+        <div class="section-heading">
+            <div>
+                <div class="eyebrow">ANSWER REVIEW</div>
+                <h2>Question Analysis</h2>
+            </div>
+        </div>
+
+        <div id="answerReview"></div>
+
+    </section>
+
+
+    <section class="dashboard-card">
+
+        <div class="section-heading">
+            <div>
+                <div class="eyebrow">LEARNING PROGRESS</div>
+                <h2>Course Progress</h2>
+            </div>
+        </div>
+
+        <div id="courseProgressList"></div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+const result =
+    JSON.parse(
+        sessionStorage.getItem("lastAssessmentResult") || "null"
+    );
+
+if (!result) {
+
+    document.getElementById("resultTitle").textContent =
+        "No Result Available";
+
+    document.getElementById("resultMessage").textContent =
+        "Complete an assessment to view your results.";
+
+} else {
+
+    document.getElementById("resultTitle").textContent =
+        result.title || "Assessment Results";
+
+    const percentage =
+        result.percentage || 0;
+
+    document.getElementById("score").textContent =
+        percentage + "%";
+
+    document.getElementById("correct").textContent =
+        result.correct || 0;
+
+    document.getElementById("incorrect").textContent =
+        result.incorrect || 0;
+
+    document.getElementById("total").textContent =
+        result.total || 0;
+
+
+    if (percentage >= 80) {
+
+        document.getElementById("scoreLabel").textContent =
+            "Excellent Performance";
+
+        document.getElementById("resultMessage").textContent =
+            "Excellent work! You have a strong understanding of the concepts.";
+
+    } else if (percentage >= 60) {
+
+        document.getElementById("scoreLabel").textContent =
+            "Good Performance";
+
+        document.getElementById("resultMessage").textContent =
+            "Good work. Review the incorrect answers and strengthen your concepts.";
+
+    } else {
+
+        document.getElementById("scoreLabel").textContent =
+            "Needs Improvement";
+
+        document.getElementById("resultMessage").textContent =
+            "Review the lessons and try the assessment again.";
+
+    }
+
+
+    renderAnswers(result);
+
+}
+
+
+function renderAnswers(result) {
+
+    const container =
+        document.getElementById("answerReview");
+
+    container.innerHTML = "";
+
+    if (!result.answers) {
+
+        container.innerHTML =
+            "<p class='muted-text'>Detailed answer analysis is unavailable.</p>";
+
+        return;
+    }
+
+
+    result.answers.forEach((answer, index) => {
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "answer-review-item";
+
+        item.innerHTML = `
+
+            <div class="answer-number">
+                Q${index + 1}
+            </div>
+
+            <div class="answer-content">
+
+                <h3>${answer.question}</h3>
+
+                <p>
+                    Your answer:
+                    <strong>${answer.selected || "Not answered"}</strong>
+                </p>
+
+                ${
+                    answer.correctAnswer
+                    ? `<p>
+                        Correct answer:
+                        <strong>${answer.correctAnswer}</strong>
+                       </p>`
+                    : ""
+                }
+
+            </div>
+
+            <div class="${answer.correct ? "answer-correct" : "answer-wrong"}">
+                ${answer.correct ? "✓ Correct" : "✕ Incorrect"}
+            </div>
+
+        `;
+
+        container.appendChild(item);
+
+    });
+
+}
+
+
+function loadProgress() {
+
+    const container =
+        document.getElementById("courseProgressList");
+
+    const courses = [
+        {
+            id: 1,
+            name: "Data Structures & Algorithms",
+            total: 8
+        },
+        {
+            id: 2,
+            name: "Database Management Systems",
+            total: 8
+        },
+        {
+            id: 3,
+            name: "Computer Networks",
+            total: 8
+        },
+        {
+            id: 4,
+            name: "Operating Systems",
+            total: 8
+        }
+    ];
+
+
+    courses.forEach(course => {
+
+        let completed = [];
+
+        try {
+
+            completed =
+                JSON.parse(
+                    sessionStorage.getItem(
+                        `course_${course.id}_completed`
+                    )
+                ) || [];
+
+        } catch {
+
+            completed = [];
+
+        }
+
+
+        const progress =
+            Math.round(
+                (completed.length / course.total) * 100
+            );
+
+
+        const row =
+            document.createElement("div");
+
+        row.className =
+            "progress-row";
+
+        row.innerHTML = `
+
+            <div class="progress-info">
+
+                <span>${course.name}</span>
+
+                <strong>${progress}%</strong>
+
+            </div>
+
+            <div class="progress-track">
+
+                <div
+                    class="progress-fill"
+                    style="width:${progress}%">
+                </div>
+
+            </div>
+
+        `;
+
+        container.appendChild(row);
+
+    });
+
+}
+
+
+function goDashboard() {
+
+    window.location.href =
+        "student-dashboard.html";
+
+}
+
+
+function logout() {
+
+    sessionStorage.clear();
+
+    window.location.href =
+        "student-login.html";
+
+}
+
+
+loadProgress();
+
+</script>
+
+</body>
+</html>
